@@ -1,0 +1,50 @@
+<html>
+
+
+<head>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
+<div>
+    <b>Session info</b><br>
+    <i>
+        <?php
+        foreach ($session_info as $key => $param){
+            echo $key.': '.$param.'<br>';
+        }
+        ?>
+    </i>
+    <hr>
+</div>
+<div>
+    <b>Serie info</b><br>
+    <i>
+        <?php
+        foreach ($serie_info as $key => $param){
+            echo $key.': '.$param.'<br>';
+        }
+        ?>
+    </i>
+    <hr>
+</div>
+
+
+<form method="post" action="/?route=admin/NewSerie">
+    <div id=divf>
+        <h4>hit 1:</h4>
+        X: <input type=number name="hit_1[x]"><br>
+        Y: <input type=number name="hit_1[y]">
+    </div>
+
+    <input id="add" type=button onclick=plus(); value="Add">
+    <input id="delete" type=button onclick=minus(); value="delete">
+    <hr>
+    <button id="new_hits_btn">Add enother serie!</button>
+    <br><br><br><a href="?route=admin/index">Finished session!</a>
+</form>
+</body>
+
+
+</html>

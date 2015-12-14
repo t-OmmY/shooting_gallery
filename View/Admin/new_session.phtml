@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
+<form method="post" action="/?route=admin/NewSerie">
+    <h4>Enter infornation about new session:</h4>
+    <label for="form_date">Date: </label>
+    <input id="form_date" type="date" name="date"><br>
+    <label for="form_name">Session Name: </label>
+    <input id="form_name" type="text" name="session_name"><br>
+    <label for="form_shooter">Shooter: </label>
+    <select id="form_shooter" name="shooter">
+        <?php
+        foreach ($shooter_info as $i){
+            ?><option><?=($i['first_name'])?></option>
+            <?php     }      ?>
+    </select><br>
+    <label for="form_caliber">Caliber: </label>
+    <select id="form_caliber" name="caliber">
+        <?php
+            foreach ($caliber_info as $i){
+                ?><option><?=($i['caliber_name'])?></option>
+            <?php     }      ?>
+    </select><br>
+    <label for="form_target">Choose the target: </label>
+    <select id="form_target" name="target">
+        <?php
+        foreach ($target_info as $i){
+            ?><option><?=$i['target_name'] ?></option>
+            <?php      }     ?>
+    </select><br>
+    <button id="new_session_btn">Create new session!</button>
+    <br><br><br><a href="?route=admin/index">Finished session!</a>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+
+<form method="post" action="/?route=admin/selectSession">
+    <select id="form_session" name="session">
+        <?php
+        foreach ($params as $i){
+            ?><option><?=($i['date'])?></option>
+        <?php     }      ?>
+    </select>
+
+    <button>Choose</button>
+    or
+
+    <a href="?route=admin/NewSession">Create new Session</a>
+
+
+
+</form>

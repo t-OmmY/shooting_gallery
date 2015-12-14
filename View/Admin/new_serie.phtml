@@ -1,0 +1,72 @@
+
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+   <script src="../../Js/scripts.js"></script>
+</head>
+<body>
+    <div>
+        <b>Session info</b><br>
+        <i>
+            <?php
+            foreach ($session_info as $key => $param){
+                echo $key.': '.$param.'<br>';
+            }
+            ?>
+        </i>
+        <hr>
+    </div>
+    <form method="post" action="/?route=admin/NewHits">
+        <h4>Enter information about seria:</h4>
+
+        <label for="form_seria_num">Serie Number: </label>
+        <input id="form_seria_num" type="text" name="serie_number"><br>
+
+        <label for="form_color">Color: </label>
+        <select id="form_color" name="color">
+            <?php
+            foreach ($color_info as $i){
+                ?><option><?=($i['color_name'])?></option>
+            <?php    }     ?>
+        </select><br>
+
+        <label for="form_range">Range: </label>
+        <input id="form_range" type="text" name="range"><br>
+
+        <label for="form_scope">Scope: </label>
+        <select id="form_scope" name="scope">
+            <option></option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select><br>
+
+        <label for="form_fireslyle">Firestyle: </label>
+        <select id="form_fireslyle" name="firestyle">
+            <option></option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select><br>
+
+        <label for="form_serie_name">Serie name: </label>
+        <input id="form_serie_name" type="text" name="serie_name"><br>
+
+        <label for="form_serie_comment">Comments: </label>
+        <textarea id="form_serie_comment" name="serie_comment"></textarea><br>
+
+
+        <button id="new_serie_btn">Create new serie!</button>
+        <br><br><br><a href="?route=admin/index">Finished session!</a>
+    </form>
+</body>
+
+
+</html>
+<?php
+
+
