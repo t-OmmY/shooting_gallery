@@ -65,6 +65,30 @@ INSERT INTO `colors` VALUES (1,'Green'),(2,'Blue'),(3,'Red'),(4,'Black'),(5,'Yel
 UNLOCK TABLES;
 
 --
+-- Table structure for table `firestyle`
+--
+
+DROP TABLE IF EXISTS `firestyle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `firestyle` (
+  `firestyle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firestyle_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`firestyle_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `firestyle`
+--
+
+LOCK TABLES `firestyle` WRITE;
+/*!40000 ALTER TABLE `firestyle` DISABLE KEYS */;
+INSERT INTO `firestyle` VALUES (1,'fireStyle1'),(2,'fireStyle2'),(3,'fireStyle3'),(4,'fireStyle4');
+/*!40000 ALTER TABLE `firestyle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hits`
 --
 
@@ -79,7 +103,7 @@ CREATE TABLE `hits` (
   PRIMARY KEY (`hit_id`),
   KEY `serie_id` (`serie_id`),
   CONSTRAINT `hits_ibfk_1` FOREIGN KEY (`serie_id`) REFERENCES `series` (`serie_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,8 +112,32 @@ CREATE TABLE `hits` (
 
 LOCK TABLES `hits` WRITE;
 /*!40000 ALTER TABLE `hits` DISABLE KEYS */;
-INSERT INTO `hits` VALUES (1,1,134,143),(2,1,254,223),(3,1,334,343),(4,1,454,423),(5,1,134,143),(6,1,254,223),(7,1,334,343),(8,1,454,423),(9,2,134,143),(10,2,254,223),(11,2,334,343),(12,2,454,423),(13,3,134,143),(14,3,254,223),(15,3,334,343),(16,3,454,423),(17,6,134,143),(18,6,254,223),(19,6,334,343),(20,6,454,423),(21,6,134,143),(22,6,254,223),(23,6,334,343),(24,6,454,423),(25,6,1,2),(26,6,3,4),(27,6,5,6),(28,6,0,0),(29,6,21,32),(30,6,32,5656),(31,6,123,12332),(35,6,0,0),(36,7,1,2),(37,7,3,4),(38,7,64352,8765432),(39,7,122,23),(40,7,234,4243),(41,7,122,23),(42,12,1,2),(43,13,1,1),(44,13,2,2),(45,13,3,3),(46,13,4,4),(47,13,5,5),(48,14,6,6),(49,14,7,7),(50,14,8,8),(51,14,9,9),(52,15,10,10),(53,15,11,11),(54,15,12,12);
+INSERT INTO `hits` VALUES (64,21,3,3),(65,21,1,2),(66,22,3,6),(67,22,5,5),(68,22,5,8),(69,23,8787878,767676),(70,23,456,4567),(71,23,67,76);
 /*!40000 ALTER TABLE `hits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `scope`
+--
+
+DROP TABLE IF EXISTS `scope`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scope` (
+  `scope_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `scope_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`scope_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `scope`
+--
+
+LOCK TABLES `scope` WRITE;
+/*!40000 ALTER TABLE `scope` DISABLE KEYS */;
+INSERT INTO `scope` VALUES (1,'Scope 1'),(2,'Scope 2'),(3,'Scope 3'),(4,'Scope 4');
+/*!40000 ALTER TABLE `scope` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -103,8 +151,8 @@ CREATE TABLE `series` (
   `serie_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `color_id` int(11) unsigned NOT NULL,
   `range` int(11) NOT NULL,
-  `scope` int(11) NOT NULL,
-  `firestyle` int(11) NOT NULL,
+  `scope_id` int(10) unsigned NOT NULL,
+  `firestyle_id` int(10) unsigned NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `comment` varchar(100) DEFAULT NULL,
   `number` int(11) NOT NULL,
@@ -112,9 +160,13 @@ CREATE TABLE `series` (
   PRIMARY KEY (`serie_id`),
   KEY `session_id` (`session_id`),
   KEY `color` (`color_id`),
+  KEY `scope` (`scope_id`),
+  KEY `firestyle` (`firestyle_id`),
   CONSTRAINT `series_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`session_id`) ON DELETE CASCADE,
-  CONSTRAINT `series_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`color_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  CONSTRAINT `series_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`color_id`) ON DELETE CASCADE,
+  CONSTRAINT `series_ibfk_3` FOREIGN KEY (`scope_id`) REFERENCES `scope` (`scope_id`) ON DELETE CASCADE,
+  CONSTRAINT `series_ibfk_4` FOREIGN KEY (`firestyle_id`) REFERENCES `firestyle` (`firestyle_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +175,7 @@ CREATE TABLE `series` (
 
 LOCK TABLES `series` WRITE;
 /*!40000 ALTER TABLE `series` DISABLE KEYS */;
-INSERT INTO `series` VALUES (1,3,25,1,3,'test_name_serie','some content',1,1),(2,3,25,1,3,'test_name_serie','some content',1,6),(3,3,25,1,3,'test_name_serie','some content',1,7),(6,2,123,3,2,'lklk','tyuio',4,9),(7,4,50,1,2,'ÐŸÐµÑ€ÐµÐ½Ð¾Ñ 1','',1,10),(8,1,50,2,1,'you','lkj',3,19),(9,1,50,2,1,'you','lkj',3,19),(10,4,0,1,1,'asdf','sdf',3,19),(11,3,34,1,2,'denys','nonono',1,21),(12,4,50,1,1,'test','',3,22),(13,1,50,2,1,'first serie','',1,26),(14,2,50,2,2,'second serie','',2,26),(15,6,50,1,1,'third try','no comments',3,26);
+INSERT INTO `series` VALUES (21,1,30,3,2,'some','asf',1,42),(22,1,47,1,1,'hello','as',2,42),(23,1,23,1,1,'lklk','kjhjhjh',3,42);
 /*!40000 ALTER TABLE `series` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +200,7 @@ CREATE TABLE `sessions` (
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`target_id`) REFERENCES `targets` (`target_id`) ON DELETE CASCADE,
   CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`shooter_id`) REFERENCES `shooters` (`shooter_id`) ON DELETE CASCADE,
   CONSTRAINT `sessions_ibfk_3` FOREIGN KEY (`caliber_id`) REFERENCES `caliber` (`caliber_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +209,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,'2015-12-10','test',1,3,1),(2,'2015-12-10','test',1,3,1),(3,'2015-12-10','test',1,3,1),(4,'2015-12-10','test',1,3,1),(5,'2015-12-09','My first session',2,3,1),(6,'2015-12-10','test',1,3,1),(7,'2015-12-10','test',1,3,1),(9,'2015-12-01','last test',2,3,1),(10,'2015-12-12','ÐŸÐµÑ€ÐµÐ½Ð¾ÑÑ‹',2,1,2),(11,'2015-12-31','ÐŸÑ€Ð¸Ð²ÐµÑ‚, ÐŸÑ€Ð¸Ð²ÐµÑ‚',3,2,2),(12,'2015-12-15','Ñ‹Ð²Ð°',3,1,3),(13,'2015-12-15','Ñ‹Ð²Ð°',3,1,3),(14,'2015-12-01','Ð´Ð»Ð¾',1,2,3),(15,'2015-12-01','Ð´Ð»Ð¾',1,2,3),(16,'2015-12-01','Ð´Ð»Ð¾',1,2,3),(17,'2015-12-09','jtllo',2,2,3),(18,'2015-12-16','hello',3,1,2),(19,'2015-12-16','hello',3,1,2),(20,'2015-12-16','111',3,1,1),(21,'2015-12-08','asdf',1,2,2),(22,'2015-12-09','first MVC',2,3,2),(23,'2015-12-02','asff',1,1,1),(24,'2015-12-09','kjj;lj',1,1,1),(25,'2015-12-03','Hello',1,1,1),(26,'2015-12-31','Happy New Year!',1,1,1),(27,'2015-12-17','ljhjk',1,1,1);
+INSERT INTO `sessions` VALUES (40,'2015-12-16','Test1',3,3,2),(41,'2015-12-02','jh',1,1,1),(42,'2015-12-09','try to fire',2,2,2);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,4 +271,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-15  1:24:52
+-- Dump completed on 2015-12-16 21:03:01

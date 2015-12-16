@@ -53,17 +53,19 @@ class AdminController
 
         if ($request->isPost()) {
             if (isset($_POST['hit_1'])){
-                $adminModel ->postNewHits();
+                $adminModel -> postNewHits();
             } else {
-                $adminModel ->postNewSession();
+                $adminModel -> postNewSession();
             }
         }
 
         $params = $adminModel -> getInfoForNewSerie();
-        $info = $adminModel ->getInfoAboutLastSerieAndSession();
+        $info = $adminModel -> getInfoAboutLastSerieAndSession();
         $session_info= $info[0];
         $color_info = $params[0];
-
+        $firestyle_info = $params[2];
+        $scope_info = $params[3];
+        $number = $params[1] + 1;
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
@@ -86,7 +88,6 @@ class AdminController
         if ($request->isPost()) {
             $adminModel ->postNewSerie();
         }
-
         $info = $adminModel ->getInfoAboutLastSerieAndSession();
         $session_info = $info[0];
         $serie_info = $info[1];
@@ -109,8 +110,24 @@ class AdminController
 
     public function selectSessionAction(Request $request)
     {
-        return 'to be continue...';
+        $adminModel = new AdminModel();
+        $param = $adminModel->selectSession();
+        $session_info = $param[0];
+        $series_info = $param[1];
+
+        $templateDir = str_replace('Controller', '', __CLASS__);
+
+        // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
+        $templateFile = VIEW_DIR . $templateDir . DS . 'session.phtml';
+
+        // открываем буфер вывода, далее - подключение шаблона.
+        // там можно использовать переменные, которые определены в контроллере - с готовыми данными
+        ob_start();
+        require $templateFile;
+
+        // очистка буфера и возврат строки с динамческим контентом
+        return ob_get_clean();
+
 
     }
-
 }

@@ -19,8 +19,7 @@ class DbConnection
     public static function getInstance()
     {
         if (is_null(self::$instance)) {
-            // todo: вынести параметры подключения в отдельный файл
-            self::$instance = new DbConnection('localhost', 'root', '', 'weber');
+            self::$instance = new DbConnection(DB_URL, DB_USER, DB_PWD, DB_NAME);
         }
 
         return self::$instance;

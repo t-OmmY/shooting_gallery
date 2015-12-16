@@ -14,3 +14,10 @@ define('LIB_DIR', ROOT . 'Library' . DS);
 define('VIEW_DIR', ROOT . 'View' . DS);
 define('CONTROLLER_DIR', ROOT . 'Controller' . DS);
 define('MODEL_DIR', ROOT . 'Model' . DS);
+
+
+//DataBase connections:
+define('DB_URL', 'localhost');
+define('DB_USER', 'root');
+define('DB_PWD', '');
+define('DB_NAME', 'weber');

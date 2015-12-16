@@ -24,7 +24,7 @@
         <h4>Enter information about seria:</h4>
 
         <label for="form_seria_num">Serie Number: </label>
-        <input id="form_seria_num" type="text" name="serie_number"><br>
+        <input id="form_seria_num" type="text" name="serie_number" value="<?=$number?>" readonly><br>
 
         <label for="form_color">Color: </label>
         <select id="form_color" name="color">
@@ -35,22 +35,22 @@
         </select><br>
 
         <label for="form_range">Range: </label>
-        <input id="form_range" type="text" name="range"><br>
+        <input id="form_range" type="number" name="range"><br>
 
         <label for="form_scope">Scope: </label>
         <select id="form_scope" name="scope">
-            <option></option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <?php
+            foreach ($scope_info as $i){
+                ?><option><?=($i['scope_name'])?></option>
+            <?php    }     ?>
         </select><br>
 
         <label for="form_fireslyle">Firestyle: </label>
         <select id="form_fireslyle" name="firestyle">
-            <option></option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <?php
+            foreach ($firestyle_info as $i){
+                ?><option><?=($i['firestyle_name'])?></option>
+            <?php    }     ?>
         </select><br>
 
         <label for="form_serie_name">Serie name: </label>
