@@ -13,23 +13,26 @@
         <b>Session info</b><br>
         <i>
             <?php
-            foreach ($session_info as $key => $param){
+            foreach ($session_info['result'] as $key => $param){
                 echo $key.': '.$param.'<br>';
             }
             ?>
         </i>
         <hr>
     </div>
-    <form method="post" action="/?route=admin/NewHits">
+
+
+    <form method="post" action="/?route=admin/addNewSerie">
+        <input type="text" name="session_id" value="<?=$session_info['result']['session_id']?>" hidden>
         <h4>Enter information about seria:</h4>
 
         <label for="form_seria_num">Serie Number: </label>
-        <input id="form_seria_num" type="text" name="serie_number" value="<?=$number?>" readonly><br>
+        <input id="form_seria_num" type="text" name="serie_number" value="<?=$for_new_serie['number']?>" readonly><br>
 
         <label for="form_color">Color: </label>
         <select id="form_color" name="color">
             <?php
-            foreach ($color_info as $i){
+            foreach ($for_new_serie['color_info'] as $i){
                 ?><option><?=($i['color_name'])?></option>
             <?php    }     ?>
         </select><br>
@@ -40,7 +43,7 @@
         <label for="form_scope">Scope: </label>
         <select id="form_scope" name="scope">
             <?php
-            foreach ($scope_info as $i){
+            foreach ($for_new_serie['scope_info'] as $i){
                 ?><option><?=($i['scope_name'])?></option>
             <?php    }     ?>
         </select><br>
@@ -48,7 +51,7 @@
         <label for="form_fireslyle">Firestyle: </label>
         <select id="form_fireslyle" name="firestyle">
             <?php
-            foreach ($firestyle_info as $i){
+            foreach ($for_new_serie['firestyle_info'] as $i){
                 ?><option><?=($i['firestyle_name'])?></option>
             <?php    }     ?>
         </select><br>
@@ -60,6 +63,7 @@
         <textarea id="form_serie_comment" name="serie_comment"></textarea><br>
 
 
+        <button type="button" onclick="history.back()">Back</button>
         <button id="new_serie_btn">Create new serie!</button>
         <br><br><br><a href="?route=admin/index">Finished session!</a>
     </form>
@@ -67,6 +71,5 @@
 
 
 </html>
-<?php
 
 

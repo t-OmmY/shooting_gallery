@@ -11,7 +11,7 @@
     <b>Session info</b><br>
     <i>
         <?php
-        foreach ($session_info as $key => $param){
+        foreach ($session_info['result'] as $key => $param){
             echo $key.': '.$param.'<br>';
         }
         ?>
@@ -22,7 +22,7 @@
     <b>Serie info</b><br>
     <i>
         <?php
-        foreach ($serie_info as $key => $param){
+        foreach ($serie_info['result'] as $key => $param){
             echo $key.': '.$param.'<br>';
         }
         ?>
@@ -30,10 +30,10 @@
     <hr>
 </div>
 
-
-<form method="post" action="/?route=admin/NewSerie">
+<form method="post" action="/?route=admin/addNewHit">
     <div id=divf>
         <b>hit 1:</b><br>
+        <input type="text" name="serie_id" value="<?=$serie_info["result"]["serie_id"]?>" hidden>
         X: <input type=number name="hit_1[x]"><br>
         Y: <input type=number name="hit_1[y]">
     </div>
@@ -41,6 +41,7 @@
     <input id="add" type=button onclick=plus(); value="Add">
     <input id="delete" type=button onclick=minus(); value="delete">
     <hr>
+    <button type="button" onclick="history.back()">Back</button>
     <button id="new_hits_btn">Add enother serie!</button>
     <br><br><br><a href="?route=admin/index">Finished session!</a>
 </form>

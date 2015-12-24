@@ -6,7 +6,7 @@
     <script src="../../Js/scripts.js"></script>
 </head>
 <body>
-<form method="post" action="/?route=admin/NewSerie">
+<form method="post" action="/?route=admin/addNewSession">
     <h4>Enter infornation about new session:</h4>
     <label for="form_date">Date: </label>
     <input id="form_date" type="date" name="date"><br>
@@ -15,24 +15,25 @@
     <label for="form_shooter">Shooter: </label>
     <select id="form_shooter" name="shooter">
         <?php
-        foreach ($shooter_info as $i){
+        foreach ($for_new_session['shooter_info'] as $i){
             ?><option><?=($i['first_name'])?></option>
             <?php     }      ?>
     </select><br>
     <label for="form_caliber">Caliber: </label>
     <select id="form_caliber" name="caliber">
         <?php
-            foreach ($caliber_info as $i){
+            foreach ($for_new_session['caliber_info'] as $i){
                 ?><option><?=($i['caliber_name'])?></option>
             <?php     }      ?>
     </select><br>
     <label for="form_target">Choose the target: </label>
     <select id="form_target" name="target">
         <?php
-        foreach ($target_info as $i){
+        foreach ($for_new_session['target_info'] as $i){
             ?><option><?=$i['target_name'] ?></option>
             <?php      }     ?>
     </select><br>
+    <button type="button" onclick="history.back()">Back</button>
     <button id="new_session_btn">Create new session!</button>
     <br><br><br><a href="?route=admin/index">Finished session!</a>
 </form>

@@ -1,8 +1,8 @@
 
 <form method="post" action="/?route=admin/selectSession">
-    <select id="form_session" name="session">
+    Select the Session: <select id="form_session" name="session_id">
         <?php
-        foreach ($params as $i){
+        foreach ($session_list['result'] as $i){
             ?><option><?=($i['session_id'])?></option>
         <?php     }      ?>
     </select>
@@ -10,9 +10,8 @@
     <button>Choose</button>
     or
 
-    <a href="?route=admin/newSession">Create new Session</a>
-<br><br><br><br><br><br>
-    <a href="?route=edit/index">Edit Base</a>
+    <a href="?route=admin/newSessionForm">Create new Session</a>
+
 
 
 </form>

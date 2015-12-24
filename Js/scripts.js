@@ -16,10 +16,11 @@ $(document).ready(function(){
 var n=2;
 function plus(){
     newDiv = document.createElement('div');
-    newDiv.innerHTML+='<br><h4>hit '+n+':</h4>X: <input type=number id="id'+n+'" name="hit_'+n+'[x]"><br>Y: <input type=number id="id'+n+'" name="hit_'+n+'[y]">';
+    newDiv.innerHTML+='<h4>hit '+n+':</h4>X: <input type=number id="id'+n+'" name="hit_'+n+'[x]"><br>Y: <input type=number id="id'+n+'" name="hit_'+n+'[y]">';
     var addPlace = document.getElementById('divf');
     addPlace.appendChild(newDiv);
     n++;
+
 }
 
 function minus(){

@@ -1,0 +1,31 @@
+
+<form method="post" action="/?route=admin/selectHit">
+
+    <?php foreach ($serie_info['result'] as $key => $value){
+        echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
+    <?php }    ?>
+
+    hit_list: <select name="hit_id">
+        <?php foreach ($hit_list['result'] as $value){?>
+            <option><?=$value['hit_id']?></option>
+        <?php }    ?>
+
+    </select>
+
+    <button>Watch the Hit</button>
+
+</form>
+<br>
+<form method="post" action="/?route=admin/newHitForm">
+    <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
+    <button type="button" onclick="history.back()">Back</button>
+    <input name="session_id" value="<?=$_POST['session_id']?>" hidden>
+    <button>Add new Hit</button>
+</form>
+
+<br><br><br>
+<form method="post" action="/?route=admin/deleteSerie" onsubmit="return confirm('Are you sure?')">
+    <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
+    <button>Delete Serie</button>
+</form>
+

@@ -4,9 +4,8 @@ class AdminController
 {
     public function indexAction()
     {
-        $adminModel = new AdminModel();
-        $params = $adminModel -> index();
-
+        $infoModel = new infoModel();
+        $session_list = ($infoModel -> sessionList());
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
@@ -19,19 +18,12 @@ class AdminController
 
         // очистка буфера и возврат строки с динамческим контентом
         return ob_get_clean();
-
-
     }
 
-    public function NewSessionAction(Request $request)
+    public function newSessionFormAction()
     {
-
-        $adminModel = new AdminModel();
-        $params = $adminModel -> getInfoForNewSession();
-        $shooter_info = $params[0];
-        $caliber_info = $params[1];
-        $target_info = $params[2];
-
+        $infoModel = new infoModel();
+        $for_new_session = $infoModel ->forNewSession();
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
@@ -47,25 +39,21 @@ class AdminController
 
     }
 
-    public function NewSerieAction(Request $request)
+    public function addNewSessionAction()
     {
-        $adminModel = new AdminModel();
+        $updateModel = new updateModel();
+        $result = $updateModel->addSession($_POST);
+        return ($this->newSerieFormAction($result['session_id']));
+    }
 
-        if ($request->isPost()) {
-            if (isset($_POST['hit_1'])){
-                $adminModel -> postNewHits();
-            } else {
-                $adminModel -> postNewSession();
-            }
+    public function newSerieFormAction($param)
+    {
+        if (is_object( $param )){
+        $param = $param->post('session_id');
         }
-
-        $params = $adminModel -> getInfoForNewSerie();
-        $info = $adminModel -> getInfoAboutLastSerieAndSession();
-        $session_info= $info[0];
-        $color_info = $params[0];
-        $firestyle_info = $params[2];
-        $scope_info = $params[3];
-        $number = $params[1] + 1;
+        $infoModel = new infoModel();
+        $for_new_serie = $infoModel ->forNewSerie($param);
+        $session_info = $infoModel->sessionInfo($param);
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
@@ -78,21 +66,24 @@ class AdminController
 
         // очистка буфера и возврат строки с динамческим контентом
         return ob_get_clean();
-
     }
 
-    public function NewHitsAction(Request $request)
+    public function addNewSerieAction()
     {
-        $adminModel = new AdminModel();
+        $updateModel = new updateModel();
+        $result = $updateModel->addSerie($_POST);
+        return ($this->newHitFormAction($result));
+    }
 
-        if ($request->isPost()) {
-            $adminModel ->postNewSerie();
+    public function newHitFormAction($param)
+    {
+
+        if (is_object( $param )){
+            $param=$_POST;
         }
-        $info = $adminModel ->getInfoAboutLastSerieAndSession();
-        $session_info = $info[0];
-        $serie_info = $info[1];
-
-
+        $infoModel = new infoModel();
+        $session_info = $infoModel->sessionInfo($param['session_id']);
+        $serie_info = $infoModel->serieInfo($param['serie_id']);
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
@@ -108,17 +99,46 @@ class AdminController
 
     }
 
+    public function addNewHitAction()
+    {
+        $updateModel = new updateModel();
+        $result = $updateModel->addHits($_POST);
+        return ($this->newSerieFormAction($result['session_id']));
+    }
+
     public function selectSessionAction(Request $request)
     {
-        $adminModel = new AdminModel();
-        $param = $adminModel->selectSession();
-        $session_info = $param[0];
-        $series_info = $param[1];
+        $param = $request->post('session_id');
+        $infoModel = new infoModel();
+        $session_info = $infoModel->sessionInfo($param);
+        $serie_list = $infoModel->serieList($param);
 
         $templateDir = str_replace('Controller', '', __CLASS__);
 
         // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
-        $templateFile = VIEW_DIR . $templateDir . DS . 'session.phtml';
+        $templateFile = VIEW_DIR . $templateDir . DS . 'select_session.phtml';
+
+        // открываем буфер вывода, далее - подключение шаблона.
+        // там можно использовать переменные, которые определены в контроллере - с готовыми данными
+        ob_start();
+        require $templateFile;
+
+        // очистка буфера и возврат строки с динамческим контентом
+        return ob_get_clean();
+
+    }
+
+    public function selectSerieAction()
+    {
+        $infoModel = new infoModel();
+        $result = $infoModel->serieIdBySessionIdAndNubmer($_POST['session_id'], $_POST['serie_number']);
+        $param = $result['result']['serie_id'];
+        $serie_info = $infoModel->serieInfo($param);
+        $hit_list = $infoModel->hitList($param);
+        $templateDir = str_replace('Controller', '', __CLASS__);
+
+        // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
+        $templateFile = VIEW_DIR . $templateDir . DS . 'select_serie.phtml';
 
         // открываем буфер вывода, далее - подключение шаблона.
         // там можно использовать переменные, которые определены в контроллере - с готовыми данными
@@ -129,5 +149,45 @@ class AdminController
         return ob_get_clean();
 
 
+    }
+
+    public function deleteSessionAction()
+    {
+        $updateModel = new updateModel();
+        $updateModel->deleteSession($_POST);
+        return ($this->indexAction());
+    }
+
+    public function deleteSerieAction()
+    {
+        $updateModel = new updateModel();
+        $updateModel->deleteSerie($_POST);
+        return ($this->indexAction());
+    }
+
+    public function deleteHitAction()
+    {
+        $updateModel = new updateModel();
+        $updateModel->deleteHit($_POST);
+        return ($this->indexAction());
+    }
+
+    public function selectHitAction()
+    {
+        $infoModel = new infoModel();
+        $hit_info = $infoModel->hitInfo($_POST['hit_id']);
+
+        $templateDir = str_replace('Controller', '', __CLASS__);
+
+        // полный путь к шаблону содержит путь к папке View в виде константы VIEW_DIR
+        $templateFile = VIEW_DIR . $templateDir . DS . 'select_hit.phtml';
+
+        // открываем буфер вывода, далее - подключение шаблона.
+        // там можно использовать переменные, которые определены в контроллере - с готовыми данными
+        ob_start();
+        require $templateFile;
+
+        // очистка буфера и возврат строки с динамческим контентом
+        return ob_get_clean();
     }
 }

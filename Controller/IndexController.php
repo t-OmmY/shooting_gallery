@@ -19,7 +19,7 @@ class IndexController
         // очистка буфера и возврат строки с динамческим контентом
         return ob_get_clean();
 */
-        return 1;
+        return 'С Днем РОЖДЕНИЯ Брат!!!';
     }
 
 
@@ -32,7 +32,7 @@ class IndexController
     public function aboutAction(Request $request)
     {
 
-        return 2;
+        return '!!!!34!!!!';
     }
 
 
@@ -44,7 +44,7 @@ class IndexController
      */
     public function contactAction(Request $request)
     {
-        return 4;
+        return 'HAPPY NEW YEAR AND MERRY CHRISTMAS';
     }
 
 }

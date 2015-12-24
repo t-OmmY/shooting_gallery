@@ -10,7 +10,7 @@ class BookController
      */
     public function indexAction(Request $request)
     {
-        return 3;
+        return 'СТРАНИЦА С ПОЗДРАВЛЕНИЯМИ';
     }
 
 }
