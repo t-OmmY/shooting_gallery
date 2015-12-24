@@ -19,7 +19,7 @@ class IndexController
         // очистка буфера и возврат строки с динамческим контентом
         return ob_get_clean();
 */
-        return 'С Днем РОЖДЕНИЯ Брат!!!';
+        return 'Happy BirthDAY!!!';
     }
 
 
