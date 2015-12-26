@@ -1,0 +1,102 @@
+
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
+
+<form method="post" action="/?route=admin/updateSerie"  onsubmit="return confirm('Do you really want to rewrite serie?')">
+    IT IS EDIT MODE, YOU SELECT<br>
+    Serie id: <input id="form_date" type="text" name="serie_id" value="<?=$_POST['serie_id']?>" readonly>
+    <br><br><i>You can change the following parameters:</i><br><br>
+
+    Session: <select id="form_session" name="session_id">
+        <?php
+        foreach ($session_list['result'] as $i){
+            ?><option
+            <?php
+            if ($i['session_id']==$_POST['session_id']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['session_id'])?></option>
+        <?php    }     ?>
+    </select><br>
+
+    <label for="form_seria_num">Serie Number: </label>
+    <input id="form_seria_num" type="number" name="serie_number" value="<?=$_POST['number']?>"><br>
+
+    <label for="form_color">Color: </label>
+    <select id="form_color" name="color">
+        <?php
+        foreach ($for_new_serie['color_info'] as $i){
+            ?><option
+            <?php
+            if ($i['color_name']==$_POST['color']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['color_name'])?></option>
+        <?php    }     ?>
+    </select><br>
+
+    <label for="form_range">Range: </label>
+    <input id="form_range" type="number" name="range" value="<?=$_POST['range']?>"><br>
+
+    <label for="form_scope">Scope: </label>
+    <select id="form_scope" name="scope">
+        <?php
+        foreach ($for_new_serie['scope_info'] as $i){
+            ?><option
+            <?php
+            if ($i['scope_name']==$_POST['scope']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['scope_name'])?></option>
+        <?php    }     ?>
+    </select><br>
+
+    <label for="form_fireslyle">Firestyle: </label>
+    <select id="form_fireslyle" name="firestyle">
+        <?php
+        foreach ($for_new_serie['firestyle_info'] as $i){
+            ?><option
+            <?php
+            if ($i['firestyle_name']==$_POST['firestyle']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['firestyle_name'])?></option>
+        <?php    }     ?>
+    </select><br>
+
+    <label for="form_serie_name">Serie name: </label>
+    <input id="form_serie_name" type="text" name="serie_name" value="<?=$_POST['name']?>"><br>
+
+    <label for="form_serie_comment">Comments: </label>
+    <textarea id="form_serie_comment" name="serie_comment"><?=$_POST['comment']?></textarea><br>
+
+
+    <button type="button" onclick="history.back()">Back</button>
+    <button id="new_serie_btn">Save changes</button>
+</form>
+</body>
+
+
+</html>
+
+

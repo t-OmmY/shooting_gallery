@@ -43,6 +43,26 @@ class infoModel
 
     }
 
+    public function serieIdList()
+    {
+        $status = 'Success';
+
+        try {
+            $db = DbConnection::getInstance()->getPDO();
+
+            $sth = $db->query('SELECT serie_id FROM series ORDER BY serie_id');
+            $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $status = 'Fail: ' . $e->getMessage();
+        }
+
+        return array(
+            'status' => $status,
+            'result' => $result
+        );
+
+    }
+
     public function hitList($param)
     {
         $status = 'Success';
@@ -126,7 +146,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT s.session_id, s.date, s.session_name, sh.first_name, t.name as target, c.name as caliber FROM sessions s JOIN caliber c ON s.caliber_id=c.caliber_id JOIN shooters sh ON sh.shooter_id = s.shooter_id JOIN targets t ON s.target_id=t.target_id WHERE session_id='.$param);
+            $sth = $db->query('SELECT s.session_id, s.date, s.session_name, sh.first_name as shooter, t.name as target, c.name as caliber FROM sessions s JOIN caliber c ON s.caliber_id=c.caliber_id JOIN shooters sh ON sh.shooter_id = s.shooter_id JOIN targets t ON s.target_id=t.target_id WHERE session_id='.$param);
             $result = $sth->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();

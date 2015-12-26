@@ -123,9 +123,9 @@ class updateModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            /*
-             * Если параметра сессии не задано, то создается серия в последней сессии, сделовательно нужно присвоить последний Ай-дишник
-             */
+            if (!isset($param['serie_number'])){
+                $param['serie_number']=null;
+            }
 
             $sth = $db->prepare ('UPDATE series SET
       color_id=(SELECT color_id FROM colors WHERE color_name=:color),
@@ -134,7 +134,7 @@ class updateModel
       firestyle_id=(SELECT firestyle_id FROM firestyle WHERE firestyle_name=:firestyle),
       `name`=:serie_name,
       comment=:serie_comment,
-      `number`=null,
+      `number`=:serie_number,
       session_id=:session_id
       WHERE serie_id=:serie_id
       ');
@@ -186,11 +186,12 @@ class updateModel
             try {
                 $db = DbConnection::getInstance()->getPDO();
 
-                $sth = $db->prepare('DELETE FROM series WHERE serie_id=:serie_id');
-                $sth->execute($param);
+                $sth = $db->prepare('DELETE FROM series WHERE serie_id='.$_POST['serie_id']);
+                $sth->execute();
             } catch (PDOException $e) {
                 $status = 'Fail: ' . $e->getMessage();
             }
+            print_r($status);
             return $status;
 
         }
@@ -201,8 +202,8 @@ class updateModel
             try {
                 $db = DbConnection::getInstance()->getPDO();
 
-                $sth = $db->prepare('DELETE FROM hits WHERE hit_id=:hit_id');
-                $sth->execute($param);
+                $sth = $db->prepare('DELETE FROM hits WHERE hit_id='.$_POST['hit_id']);
+                $sth->execute();
             } catch (PDOException $e) {
                 $status = 'Fail: ' . $e->getMessage();
             }

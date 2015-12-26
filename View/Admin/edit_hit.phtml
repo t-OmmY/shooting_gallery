@@ -1,0 +1,25 @@
+<form method="post" action="/?route=admin/updateHit" onsubmit="return confirm('Do you really want to rewrite hit?')">
+    IT IS EDIT MODE, YOU SELECT<br>
+    Hit id: <input id="form_date" type="text" name="hit_id" value="<?=$_POST['hit_id']?>" readonly>
+    <br><br><i>You can change the following parameters:</i><br><br>
+        Serie: <select id="form_serie" name="serie_id">
+            <?php
+            foreach ($serie_list['result'] as $i){
+                ?><option
+                <?php
+                if ($i['serie_id']==$_POST['serie_id']){
+                    ?>
+                    selected
+                    <?php
+                }
+                ?>
+                ><?=($i['serie_id'])?></option>
+            <?php    }     ?>
+        </select><br>
+        X: <input type=number name="x" value="<?=$_POST['x']?>"><br>
+        Y: <input type=number name="y" value="<?=$_POST['y']?>"><br>
+
+
+    <button type="button" onclick="history.back()">Back</button>
+    <button id="new_hits_btn">Save changes</button>
+</form>

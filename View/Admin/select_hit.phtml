@@ -1,3 +1,25 @@
+<table>
+    <td>
+        <tr>
+            <form method="post" action="/?route=admin/editHitForm">
+                <?php foreach ($hit_info['result'] as $key => $value){
+                    ?><input type="text" name="<?=$key?>" value="<?=$value?>" hidden>
+                <?php }    ?>
+                <button>Edit hit</button>
+            </form>
+        </tr>
+        <tr>
+            &nbsp &nbsp
+        </tr>
+        <tr>
+            <form method="post" action="/?route=admin/deleteHit" onsubmit="return confirm('Are you sure?')">
+                <input name="serie_id" value="<?=$hit_info['result']['serie_id']?>" hidden>
+                <input name="hit_id" value="<?=$hit_info['result']['hit_id']?>" hidden>
+                <button>Delete hit</button>
+            </form>
+        </tr>
+    </td>
+</table>
 
 <form method="post" action="">
 
@@ -8,10 +30,7 @@
     <button type="button" onclick="history.back()">Back</button>
 
 </form>
-<br>
 
-<form method="post" action="/?route=admin/deleteHit" onsubmit="return confirm('Are you sure?')">
-    <input name="hit_id" value="<?=$hit_info['result']['hit_id']?>" hidden>
-    <button>Delete hit</button>
-</form>
+
+
 

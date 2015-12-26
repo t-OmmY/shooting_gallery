@@ -1,3 +1,25 @@
+<table>
+    <td>
+        <tr>
+            <form method="post" action="/?route=admin/editSessionForm">
+                <?php foreach ($session_info['result'] as $key => $value){
+                    ?><input type="text" name="<?=$key?>" value="<?=$value?>" hidden>
+                <?php }    ?>
+                <button>Edit session</button>
+            </form>
+        </tr>
+        <tr>
+            &nbsp &nbsp
+        </tr>
+        <tr>
+            <form method="post" action="/?route=admin/deleteSession" onsubmit="return confirm('Are you sure?')">
+                <input name="session_id" value="<?=$session_info['result']['session_id']?>" hidden>
+                <button>Delete Session</button>
+            </form>
+        </tr>
+    </td>
+</table>
+
 
 <form method="post" action="/?route=admin/selectSerie">
     <?php foreach ($session_info['result'] as $key => $value){
@@ -16,15 +38,13 @@
 
 </form>
 <br>
+<br>
+
+
 <form method="post" action="/?route=admin/newSerieForm">
     <input name="session_id" value="<?=$session_info['result']['session_id']?>" hidden>
     <button type="button" onclick="history.back()">Back</button>
     <button>Add new Serie</button>
 </form>
 
-<br><br><br>
-<form method="post" action="/?route=admin/deleteSession" onsubmit="return confirm('Are you sure?')">
-    <input name="session_id" value="<?=$session_info['result']['session_id']?>" hidden>
-    <button>Delete Session</button>
-</form>
 

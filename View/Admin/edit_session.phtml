@@ -1,0 +1,67 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
+<form method="post" action="/?route=admin/updateSession" onsubmit="return confirm('Do you really want to rewrite session?')">
+    IT IS EDIT MODE, YOU SELECT<br>
+    Session id: <input id="form_date" type="text" name="session_id" value="<?=$_POST['session_id']?>" readonly>
+    <br><br><i>You can change the following parameters:</i><br><br>
+    <label for="form_date">Date: </label>
+    <input id="form_date" type="date" name="date" value="<?=$_POST['date']?>"><br>
+    <label for="form_name">Session Name: </label>
+    <input id="form_name" type="text" name="session_name" value="<?=$_POST['session_name']?>"><br>
+    <label for="form_shooter">Shooter: </label>
+    <select id="form_shooter" name="shooter">
+        <?php
+        foreach ($for_new_session['shooter_info'] as $i){
+            ?><option
+            <?php
+            if ($i['first_name']==$_POST['shooter']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['first_name'])?></option>
+        <?php     }      ?>
+    </select><br>
+    <label for="form_caliber">Caliber: </label>
+    <select id="form_caliber" name="caliber">
+        <?php
+        foreach ($for_new_session['caliber_info'] as $i){
+            ?><option
+            <?php
+            if ($i['caliber_name']==$_POST['caliber']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=($i['caliber_name'])?></option>
+        <?php     }      ?>
+    </select><br>
+    <label for="form_target">Choose the target: </label>
+    <select id="form_target" name="target">
+        <?php
+        foreach ($for_new_session['target_info'] as $i){
+            ?><option
+            <?php
+            if ($i['target_name']==$_POST['target']){
+                ?>
+                selected
+                <?php
+            }
+            ?>
+            ><?=$i['target_name'] ?></option>
+        <?php      }     ?>
+    </select><br>
+    <button type="button" onclick="history.back()">Back</button>
+    <button id="new_session_btn">Save changes</button>
+</form>
+</body>
+</html>
+

@@ -1,3 +1,26 @@
+<table>
+    <td>
+        <tr>
+            <form method="post" action="/?route=admin/editSerieForm">
+                <?php foreach ($serie_info['result'] as $key => $value){
+                    ?><input type="text" name="<?=$key?>" value="<?=$value?>" hidden>
+                <?php }    ?>
+                <button>Edit serie</button>
+            </form>
+        </tr>
+        <tr>
+            &nbsp &nbsp
+        </tr>
+        <tr>
+            <form method="post" action="/?route=admin/deleteSerie" onsubmit="return confirm('Are you sure?')">
+                <input name="session_id" value="<?=$_POST['session_id']?>" hidden>
+                <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
+                <button>Delete Serie</button>
+            </form>
+        </tr>
+    </td>
+</table>
+
 
 <form method="post" action="/?route=admin/selectHit">
 
@@ -6,9 +29,12 @@
     <?php }    ?>
 
     hit_list: <select name="hit_id">
-        <?php foreach ($hit_list['result'] as $value){?>
-            <option><?=$value['hit_id']?></option>
-        <?php }    ?>
+        <?php $i=1;
+        foreach ($hit_list['result'] as $value){
+            ?>
+            <option value="<?=$value['hit_id']?>"><?=$i?></option>
+            <?php $i++;
+        }    ?>
 
     </select>
 
@@ -23,9 +49,4 @@
     <button>Add new Hit</button>
 </form>
 
-<br><br><br>
-<form method="post" action="/?route=admin/deleteSerie" onsubmit="return confirm('Are you sure?')">
-    <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
-    <button>Delete Serie</button>
-</form>
 
