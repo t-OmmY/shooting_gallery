@@ -24,7 +24,7 @@ class EditBaseController extends Controller
         $table = $request->post('table');
         $editBaseModel = new editBaseModel();
         $param = $editBaseModel -> formInfo($table);
-        return $this->render('addForm', $param);
+        return $this->render('add_form', $param);
 
     }
 

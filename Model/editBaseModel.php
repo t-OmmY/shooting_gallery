@@ -1,6 +1,6 @@
 <?php
 
-class editBaseModel
+class editbaseModel
 {
     public function index()
     {
