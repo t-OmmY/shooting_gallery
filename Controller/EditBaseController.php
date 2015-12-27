@@ -37,4 +37,19 @@ class EditbaseController extends Controller
         $param = $editBaseModel->index();
         return $this->render('index', $param);
     }
+
+    public function editAction()
+    {
+        $editBaseModel = new editBaseModel();
+        $param = $editBaseModel->edit($_POST);
+        return $this->render('edit_form', $param);
+    }
+
+    public function updateAction()
+    {
+        $editBaseModel = new editBaseModel();
+        $editBaseModel->update($_POST);
+        $param = $editBaseModel->index();
+        return $this->render('index', $param);
+    }
 }

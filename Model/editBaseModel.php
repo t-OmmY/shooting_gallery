@@ -99,4 +99,54 @@ class editbaseModel
         );
 
     }
+
+    public function edit($param)
+    {
+        $status = 'Success';
+
+        try {
+            $db = DbConnection::getInstance()->getPDO();
+
+            $sth = $db->query('SELECT * FROM '.$param["table"].' WHERE '.$param["key"].'="'.$param["value"].'"');
+            $info = $sth->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            $status = 'Fail: ' . $e->getMessage();
+        }
+        return array(
+            'status' => $status,
+            'info' => $info
+        );
+    }
+
+    public function update($param)
+    {
+
+        $sqlQuerry = 'UPDATE '.$param['table'].' SET ';
+        foreach ($param as $key=>$value){
+            if (!strripos($key, '_id')){
+                if ($key != 'table'){
+                $sqlQuerry.=$key.'="'.$value.'",';
+                }
+            }
+        }
+        $sqlQuerry = rtrim($sqlQuerry, ',');
+        foreach ($param as $key=>$value){
+            if (strripos($key, '_id')){
+                $sqlQuerry.=' WHERE '.$key.'='.$value;
+            }
+        }
+        $status = 'Success';
+        try {
+            $db = DbConnection::getInstance()->getPDO();
+
+            $sth = $db->prepare ($sqlQuerry);
+            $sth->execute();
+
+        } catch (PDOException $e) {
+            $status = 'Fail: ' . $e->getMessage();
+        }
+        return $status;
+
+    }
 }
