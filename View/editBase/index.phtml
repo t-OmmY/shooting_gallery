@@ -1,0 +1,86 @@
+<form method="post">
+    <input name="table" value="colors" hidden>
+    <input name="key" value="color_name" hidden>
+    Colors: <select name="value">
+        <?php foreach($color_list as $value){
+            ?>
+            <option><?=$value['color_name']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<form method="post">
+    <input name="table" value="caliber" hidden>
+    <input name="key" value="name" hidden>
+    Calibers: <select name="value">
+        <?php foreach($caliber_list as $value){
+            ?>
+            <option value="<?=$value['name']?>"><?=$value['name'].' '.$value['diameter']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<form method="post">
+    <input name="table" value="firestyle" hidden>
+    <input name="key" value="firestyle_name" hidden>
+    Firestyles: <select name="value">
+        <?php foreach($firestyle_list as $value){
+            ?>
+            <option><?=$value['firestyle_name']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<form method="post">
+    <input name="table" value="scope" hidden>
+    <input name="key" value="scope_name" hidden>
+    Scopes: <select name="value">
+        <?php foreach($scope_list as $value){
+            ?>
+            <option><?=$value['scope_name']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<form method="post">
+    <input name="table" value="targets" hidden>
+    <input name="key" value="name" hidden>
+    Targets: <select name="value">
+        <?php foreach($target_list as $value){
+            ?>
+            <option><?=$value['name']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<form method="post">
+    <input name="table" value="shooters" hidden>
+    <input name="key" value="first_name" hidden>
+    Shooters: <select name="value">
+        <?php foreach($shooter_list as $value){
+            ?>
+            <option value="<?=$value['first_name']?>"><?=$value['first_name'].' '.$value['last_name']?></option>
+            <?php
+        }?>
+    </select>
+    <button formaction="/?route=editBase/delete" onclick="return confirm('Are you sure?')" class="isValid">Delete</button>
+    <button formaction="/?route=editbase/info">+add</button>
+</form>
+<br>
+<button type="button" onclick="history.back()">Back</button>
+

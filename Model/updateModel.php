@@ -191,7 +191,6 @@ class updateModel
             } catch (PDOException $e) {
                 $status = 'Fail: ' . $e->getMessage();
             }
-            print_r($status);
             return $status;
 
         }

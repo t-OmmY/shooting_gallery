@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    $('#new_session_btn, #new_serie_btn, #new_hits_btn').click(function () {
+    $('.isValid').click(function () {
         var fields = $('form').find('input', 'select', 'textarea');
         var valid = true;
         for (var i = 0; i<fields.length; i++){
             valid = valid && (fields[i].value !=='');
         }
         if (!valid){
-            alert ('fill the fields')
+            alert ('Impossible operation because of an empty field')
         }
         return valid;
     });

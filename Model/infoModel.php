@@ -90,7 +90,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT first_name FROM shooters');
+            $sth = $db->query('SELECT first_name, last_name FROM shooters');
             $shooter_info = $sth->fetchAll(PDO::FETCH_ASSOC);
             $sth = $db->query('SELECT name as caliber_name FROM caliber');
             $caliber_info = $sth->fetchAll(PDO::FETCH_ASSOC);
