@@ -1,6 +1,6 @@
 <?php
 
-class EditBaseController extends Controller
+class EditbaseController extends Controller
 {
     public function indexAction()
     {
