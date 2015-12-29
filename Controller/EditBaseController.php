@@ -4,7 +4,7 @@ class EditbaseController extends Controller
 {
     public function indexAction()
     {
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $param = $editBaseModel->index();
         return $this->render('index', $param);
 
@@ -12,7 +12,7 @@ class EditbaseController extends Controller
 
     public function deleteAction()
     {
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $editBaseModel->del($_POST);
         $param = $editBaseModel->index();
         return $this->render('index', $param);
@@ -22,7 +22,7 @@ class EditbaseController extends Controller
     public function infoAction(Request $request)
     {
         $table = $request->post('table');
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $param = $editBaseModel -> formInfo($table);
         return $this->render('add_form', $param);
 
@@ -32,7 +32,7 @@ class EditbaseController extends Controller
     {
         $table = $request->post('table');
         unset($_POST['table']);
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $editBaseModel->add($table, $_POST);
         $param = $editBaseModel->index();
         return $this->render('index', $param);
@@ -40,14 +40,14 @@ class EditbaseController extends Controller
 
     public function editAction()
     {
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $param = $editBaseModel->edit($_POST);
         return $this->render('edit_form', $param);
     }
 
     public function updateAction()
     {
-        $editBaseModel = new editBaseModel();
+        $editBaseModel = new editbaseModel();
         $editBaseModel->update($_POST);
         $param = $editBaseModel->index();
         return $this->render('index', $param);
