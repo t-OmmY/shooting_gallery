@@ -32,8 +32,12 @@
 <form method="post" action="">
 
     <?php foreach ($hit_info['result'] as $key => $value){
+    if ($key == 'hit_id' || $key == 'serie_id'){
+        ?>
+        <input name="<?=$key?>" value="<?=$value?>" hidden>
+    <?php } else {
         echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
-    <?php }    ?>
+    <?php }}    ?>
 
     <button type="button" onclick="history.back()">Back</button>
 

@@ -25,7 +25,6 @@ class updateModel
             $status = 'Fail: ' . $e->getMessage();
         }
 
-
         return array(
             'status'=>$status,
             'session_id'=>$result['session_id']);

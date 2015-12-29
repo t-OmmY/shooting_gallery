@@ -11,14 +11,15 @@
 <body>
 
 <form method="post" action="/?route=admin/updateSerie"  onsubmit="return confirm('Do you really want to rewrite serie?')">
-    IT IS EDIT MODE, YOU SELECT<br>
-    Serie id: <input id="form_date" type="text" name="serie_id" value="<?=$_POST['serie_id']?>" readonly>
+    IT IS EDIT MODE, YOU SELECT
+    <input id="form_date" type="text" name="serie_id" value="<?=$_POST['serie_id']?>" hidden>
     <br><br><i>You can change the following parameters:</i><br><br>
 
-    Session: <select id="form_session" name="session_id">
+    <label for="form_session">Session: </label>
+    <select id="form_session" name="session_id">
         <?php
         foreach ($session_list['result'] as $i){
-            ?><option
+            ?><option value="<?=($i['session_id'])?>"
             <?php
             if ($i['session_id']==$_POST['session_id']){
                 ?>
@@ -26,7 +27,7 @@
                 <?php
             }
             ?>
-            ><?=($i['session_id'])?></option>
+            ><?=($i['date']).' - '.$i['session_name']?></option>
         <?php    }     ?>
     </select><br>
 

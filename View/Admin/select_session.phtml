@@ -6,6 +6,7 @@
     <script src="../../Js/scripts.js"></script>
 </head>
 <body>
+
 <table>
     <td>
         <tr>
@@ -31,13 +32,16 @@
 
 <form method="post" action="/?route=admin/selectSerie">
     <?php foreach ($session_info['result'] as $key => $value){
+        if ( $key != 'session_id' ){
         echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
-    <?php }
+    <?php } else{
+        ?><input name="<?=$key?>" value="<?=$value?>" hidden><?php
+    }}
     if (!$serie_list['result'] == array()){
         ?>
         serie_list: <select name="serie_number">
             <?php foreach ($serie_list['result'] as $value){?>
-                <option><?=$value['number']?></option>
+                <option value="<?=$value['number']?>"><?=$value['number'].' - '.$value['name']?></option>
             <?php }    ?>
 
         </select>

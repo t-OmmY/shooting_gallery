@@ -9,7 +9,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT session_id FROM sessions ORDER BY session_id');
+            $sth = $db->query('SELECT session_id, date, session_name FROM sessions ORDER BY date DESC');
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
@@ -30,7 +30,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT number FROM series WHERE session_id='.$param);
+            $sth = $db->query('SELECT number, name FROM series WHERE session_id='.$param);
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();
@@ -50,7 +50,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT serie_id FROM series ORDER BY serie_id');
+            $sth = $db->query('SELECT serie_id, number, name FROM series ORDER BY serie_id');
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();

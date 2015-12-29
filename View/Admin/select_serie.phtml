@@ -6,6 +6,8 @@
     <script src="../../Js/scripts.js"></script>
 </head>
 <body>
+
+
 <table>
     <td>
         <tr>
@@ -33,8 +35,12 @@
 <form method="post" action="/?route=admin/selectHit">
 
     <?php foreach ($serie_info['result'] as $key => $value){
+        if ($key == 'session_id' || $key == 'serie_id'){
+            ?>
+            <input name="<?=$key?>" value="<?=$value?>" hidden>
+            <?php } else {
         echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
-    <?php }
+    <?php }}
     if (!$hit_list['result'] == array()){
         ?>
         hit_list: <select name="hit_id">

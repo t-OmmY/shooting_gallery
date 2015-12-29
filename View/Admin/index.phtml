@@ -12,11 +12,11 @@
             <div class="col-sm-10">
                 <?php if (!$session_list['result'] == array()){?>
                     <label for="form_session" class="col-sm-3 control-label">Select the Session: </label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <select class="form-control" id="form_session" name="session_id">
                             <?php
                             foreach ($session_list['result'] as $i){
-                                ?><option><?=($i['session_id'])?></option>
+                                ?><option value="<?=($i['session_id'])?>"><?=($i['date']).' - '.$i['session_name']?></option>
                             <?php     }      ?>
                         </select>
                     </div>

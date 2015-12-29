@@ -7,8 +7,8 @@
 </head>
 <body>
 <form method="post" action="/?route=admin/updateSession" onsubmit="return confirm('Do you really want to rewrite session?')">
-    IT IS EDIT MODE, YOU SELECT<br>
-    Session id: <input id="form_date" type="text" name="session_id" value="<?=$_POST['session_id']?>" readonly>
+    IT IS EDIT MODE
+    <input id="form_date" type="text" name="session_id" value="<?=$_POST['session_id']?>" hidden>
     <br><br><i>You can change the following parameters:</i><br><br>
     <label for="form_date">Date: </label>
     <input id="form_date" type="date" name="date" value="<?=$_POST['date']?>"><br>

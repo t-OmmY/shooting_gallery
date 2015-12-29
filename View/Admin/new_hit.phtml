@@ -12,7 +12,9 @@
     <i>
         <?php
         foreach ($session_info['result'] as $key => $param){
-            echo $key.': '.$param.'<br>';
+            if ($key !='session_id'){
+                echo $key.': '.$param.'<br>';
+            }
         }
         ?>
     </i>
@@ -23,7 +25,10 @@
     <i>
         <?php
         foreach ($serie_info['result'] as $key => $param){
-            echo $key.': '.$param.'<br>';
+            if ($key =='serie_id' || $key =='session_id'){
+            } else {
+                echo $key.': '.$param.'<br>';
+            }
         }
         ?>
     </i>
