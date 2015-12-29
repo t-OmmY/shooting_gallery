@@ -13,6 +13,7 @@ class DbConnection
         $dsn = "mysql:host={$host}; dbname={$db}";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->pdo->exec('set names utf8');
+        $this->pdo->exec('SET CHARACTER SET utf8');
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 

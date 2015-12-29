@@ -1,0 +1,18 @@
+
+<form method="post" action="/?route=editBase/update" onsubmit="return confirm('Do you really want to add it?')">
+    Edit value in <b><?=$_POST['table']?></b>. Change parameters: <br><br>
+    <input name="table" value="<?=$_POST['table']?>" hidden>
+    <?php
+    foreach ($info as $key => $value){
+        echo $key.': ';?>
+        <input name="<?=$key?>" value="<?=$value?>"
+            <?php
+            if ( strripos($key, '_id')){
+                ?>readonly<?php
+            }
+            ?>><br>
+        <?php    }    ?>
+    <br>
+    <button type="button" onclick="history.back()">Back</button>
+    <button class="isValid">Save changes</button>
+</form>

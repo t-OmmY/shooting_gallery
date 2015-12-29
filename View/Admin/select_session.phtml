@@ -1,3 +1,11 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
 <table>
     <td>
         <tr>
@@ -24,18 +32,21 @@
 <form method="post" action="/?route=admin/selectSerie">
     <?php foreach ($session_info['result'] as $key => $value){
         echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
-    <?php }    ?>
+    <?php }
+    if (!$serie_list['result'] == array()){
+        ?>
+        serie_list: <select name="serie_number">
+            <?php foreach ($serie_list['result'] as $value){?>
+                <option><?=$value['number']?></option>
+            <?php }    ?>
 
-    serie_list: <select name="serie_number">
-        <?php foreach ($serie_list['result'] as $value){?>
-            <option><?=$value['number']?></option>
-        <?php }    ?>
-
-    </select>
-
-    <button class="isValid">Watch the serie</button>
-
-
+        </select>
+        <button>Watch the serie</button>
+    <?php
+    } else {
+        echo '<i>no series in session</i>';
+    }
+    ?>
 </form>
 <br>
 <br>
@@ -46,5 +57,5 @@
     <button type="button" onclick="history.back()">Back</button>
     <button>Add new Serie</button>
 </form>
-
-
+</body>
+</html>

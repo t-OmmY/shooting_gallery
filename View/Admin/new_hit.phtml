@@ -38,12 +38,13 @@
         Y: <input type=number name="hit_1[y]">
     </div>
 
-    <input id="add" type=button onclick=plus(); value="Add">
+    <input id="add" type=button onclick=plus(); value="one more">
     <input id="delete" type=button onclick=minus(); value="delete">
     <hr>
+    <input name="session_id" value="<?=$session_info['result']['session_id']?>" hidden>
     <button type="button" onclick="history.back()">Back</button>
-    <button class="isValid">Save and add enother serie!</button>
-    <br><br><br><a href="?route=admin/index"><button type="button">Finished session!</button></a>
+    <button class="isValid">Save</button>
+    <br><br><br><a href="?route=admin/index"><button type="button">Finish session!</button></a>
 </form>
 </body>
 

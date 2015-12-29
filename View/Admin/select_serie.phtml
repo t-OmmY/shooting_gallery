@@ -1,3 +1,11 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
 <table>
     <td>
         <tr>
@@ -13,7 +21,7 @@
         </tr>
         <tr>
             <form method="post" action="/?route=admin/deleteSerie" onsubmit="return confirm('Are you sure?')">
-                <input name="session_id" value="<?=$_POST['session_id']?>" hidden>
+                <input name="session_id" value="<?=$serie_info['result']['session_id']?>" hidden>
                 <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
                 <button>Delete Serie</button>
             </form>
@@ -26,19 +34,24 @@
 
     <?php foreach ($serie_info['result'] as $key => $value){
         echo $key.': '?><input type="text" name="<?=$key?>" value="<?=$value?>" readonly><br>
-    <?php }    ?>
+    <?php }
+    if (!$hit_list['result'] == array()){
+        ?>
+        hit_list: <select name="hit_id">
+            <?php $i=1;
+            foreach ($hit_list['result'] as $value){
+                ?>
+                <option value="<?=$value['hit_id']?>"><?=$i?></option>
+                <?php $i++;
+            }    ?>
+        </select>
+        <button>Watch the Hit</button>
+        <?php
+    } else {
+        echo '<i>no hits in serie</i>';
+    }
+    ?>
 
-    hit_list: <select name="hit_id">
-        <?php $i=1;
-        foreach ($hit_list['result'] as $value){
-            ?>
-            <option value="<?=$value['hit_id']?>"><?=$i?></option>
-            <?php $i++;
-        }    ?>
-
-    </select>
-
-    <button class="isValid">Watch the Hit</button>
 
 </form>
 <br>
@@ -48,5 +61,6 @@
     <input name="session_id" value="<?=$_POST['session_id']?>" hidden>
     <button>Add new Hit</button>
 </form>
-
+</body>
+</html>
 

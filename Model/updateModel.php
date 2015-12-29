@@ -73,6 +73,7 @@ class updateModel
         $status = 'Success';
         $serie_id = $param['serie_id'];
         unset($param['serie_id']);
+        unset($param['session_id']);
         try {
             $db = DbConnection::getInstance()->getPDO();
 

@@ -1,3 +1,11 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../Js/scripts.js"></script>
+</head>
+<body>
 <form method="post" action="/?route=admin/updateHit" onsubmit="return confirm('Do you really want to rewrite hit?')">
     IT IS EDIT MODE, YOU SELECT<br>
     Hit id: <input id="form_date" type="text" name="hit_id" value="<?=$_POST['hit_id']?>" readonly>
@@ -23,3 +31,5 @@
     <button type="button" onclick="history.back()">Back</button>
     <button class="isValid">Save changes</button>
 </form>
+</body>
+</html>

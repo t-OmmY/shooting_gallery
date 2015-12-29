@@ -103,7 +103,7 @@ class AdminController
     {
         $updateModel = new updateModel();
         $result = $updateModel->addHits($_POST);
-        return ($this->newSerieFormAction($result['session_id']));
+        return ($this->selectSessionAction(new Request()));
     }
 
     public function selectSessionAction(Request $request)
