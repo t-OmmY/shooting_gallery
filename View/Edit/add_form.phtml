@@ -6,7 +6,7 @@
     <script src="../../Js/scripts.js"></script>
 </head>
 <body>
-<form method="post" action="/?route=editbase/add" onsubmit="return confirm('Do you really want to add it?')">
+<form method="post" action="/?route=edit/add" onsubmit="return confirm('Do you really want to add it?')">
     New value in <b><?=$_POST['table']?></b>. Enter parameters: <br><br>
     <input name="table" value="<?=$_POST['table']?>" hidden>
     <?php
