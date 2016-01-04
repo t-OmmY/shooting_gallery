@@ -90,9 +90,9 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT first_name, last_name FROM shooters');
+            $sth = $db->query('SELECT nickname, first_name, last_name FROM shooters');
             $shooter_info = $sth->fetchAll(PDO::FETCH_ASSOC);
-            $sth = $db->query('SELECT name as caliber_name FROM caliber');
+            $sth = $db->query('SELECT name as caliber_name FROM calibers');
             $caliber_info = $sth->fetchAll(PDO::FETCH_ASSOC);
             $sth = $db->query('SELECT name as target_name FROM targets');
             $target_info = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -146,7 +146,7 @@ class infoModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->query('SELECT s.session_id, s.date, s.session_name, sh.first_name as shooter, t.name as target, c.name as caliber FROM sessions s JOIN caliber c ON s.caliber_id=c.caliber_id JOIN shooters sh ON sh.shooter_id = s.shooter_id JOIN targets t ON s.target_id=t.target_id WHERE session_id='.$param);
+            $sth = $db->query('SELECT s.session_id, s.date, s.session_name, sh.nickname as shooter, t.name as target, c.name as caliber FROM sessions s JOIN calibers c ON s.caliber_id=c.caliber_id JOIN shooters sh ON sh.shooter_id = s.shooter_id JOIN targets t ON s.target_id=t.target_id WHERE session_id='.$param);
             $result = $sth->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();

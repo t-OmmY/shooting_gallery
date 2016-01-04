@@ -5,6 +5,7 @@ class updateModel
     public function addSession($param)
     {
         $status = 'Success';
+        $session_id = null;
 
         try {
             $db = DbConnection::getInstance()->getPDO();
@@ -14,20 +15,19 @@ class updateModel
       :date,
       :session_name,
       (SELECT target_id FROM targets WHERE name=:target),
-      (SELECT shooter_id FROM shooters WHERE first_name=:shooter),
-      (SELECT caliber_id FROM caliber WHERE name=:caliber)
+      (SELECT shooter_id FROM shooters WHERE nickname=:shooter),
+      (SELECT caliber_id FROM calibers WHERE name=:caliber)
       )');
             $sth->execute($param);
-            $sth = $db->query('SELECT session_id FROM sessions ORDER BY session_id DESC LIMIT 1');
-            $result = ($sth->fetch(PDO::FETCH_ASSOC));
+            $session_id = $db->lastInsertId();
 
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();
         }
-
         return array(
             'status'=>$status,
-            'session_id'=>$result['session_id']);
+            'session_id'=>$session_id
+        );
     }
 
 
@@ -35,6 +35,7 @@ class updateModel
     public function addSerie($params)
     {
         $status = 'Success';
+        $serie_id = null;
 
         try {
             $db = DbConnection::getInstance()->getPDO();
@@ -51,8 +52,7 @@ class updateModel
       :session_id
       )');
             $sth->execute($params);
-            $sth = $db->query('SELECT serie_id FROM series ORDER BY serie_id DESC LIMIT 1');
-            $result = ($sth->fetch(PDO::FETCH_ASSOC));
+            $serie_id = $db->lastInsertId();
 
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();
@@ -61,7 +61,7 @@ class updateModel
 
         return array(
             'status'=>$status,
-            'serie_id'=>$result['serie_id'],
+            'serie_id'=>$serie_id,
             'session_id'=>$params['session_id']
             );
     }

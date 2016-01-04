@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `caliber`
+-- Table structure for table `calibers`
 --
 
-DROP TABLE IF EXISTS `caliber`;
+DROP TABLE IF EXISTS `calibers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `caliber` (
+CREATE TABLE `calibers` (
   `caliber_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `diameter` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`caliber_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`caliber_id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `caliber`
+-- Dumping data for table `calibers`
 --
 
-LOCK TABLES `caliber` WRITE;
-/*!40000 ALTER TABLE `caliber` DISABLE KEYS */;
-INSERT INTO `caliber` VALUES (1,'first caliber',4.34),(2,'second caliler',3.14),(3,'third caliber',5.43);
-/*!40000 ALTER TABLE `caliber` ENABLE KEYS */;
+LOCK TABLES `calibers` WRITE;
+/*!40000 ALTER TABLE `calibers` DISABLE KEYS */;
+INSERT INTO `calibers` VALUES (1,'first caliber',4.34),(2,'second caliler',3.14),(3,'third caliber',5.43);
+/*!40000 ALTER TABLE `calibers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -50,8 +51,9 @@ DROP TABLE IF EXISTS `colors`;
 CREATE TABLE `colors` (
   `color_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `color_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`color_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`color_id`),
+  UNIQUE KEY `color_name` (`color_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +62,7 @@ CREATE TABLE `colors` (
 
 LOCK TABLES `colors` WRITE;
 /*!40000 ALTER TABLE `colors` DISABLE KEYS */;
-INSERT INTO `colors` VALUES (1,'Green'),(2,'Blue'),(3,'Red'),(4,'Black'),(5,'Yellow'),(6,'Gray');
+INSERT INTO `colors` VALUES (4,'Black'),(2,'Blue'),(6,'Gray'),(1,'Green'),(3,'Red'),(5,'Yellow');
 /*!40000 ALTER TABLE `colors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +76,8 @@ DROP TABLE IF EXISTS `firestyle`;
 CREATE TABLE `firestyle` (
   `firestyle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `firestyle_name` varchar(100) NOT NULL,
-  PRIMARY KEY (`firestyle_id`)
+  PRIMARY KEY (`firestyle_id`),
+  UNIQUE KEY `firestyle_name` (`firestyle_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,7 +129,8 @@ DROP TABLE IF EXISTS `scope`;
 CREATE TABLE `scope` (
   `scope_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `scope_name` varchar(100) NOT NULL,
-  PRIMARY KEY (`scope_id`)
+  PRIMARY KEY (`scope_id`),
+  UNIQUE KEY `scope_name` (`scope_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -158,6 +162,7 @@ CREATE TABLE `series` (
   `number` int(11) NOT NULL,
   `session_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`serie_id`),
+  UNIQUE KEY `name` (`name`),
   KEY `session_id` (`session_id`),
   KEY `color` (`color_id`),
   KEY `scope` (`scope_id`),
@@ -166,7 +171,7 @@ CREATE TABLE `series` (
   CONSTRAINT `series_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`color_id`) ON DELETE CASCADE,
   CONSTRAINT `series_ibfk_3` FOREIGN KEY (`scope_id`) REFERENCES `scope` (`scope_id`) ON DELETE CASCADE,
   CONSTRAINT `series_ibfk_4` FOREIGN KEY (`firestyle_id`) REFERENCES `firestyle` (`firestyle_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +180,7 @@ CREATE TABLE `series` (
 
 LOCK TABLES `series` WRITE;
 /*!40000 ALTER TABLE `series` DISABLE KEYS */;
-INSERT INTO `series` VALUES (21,1,30,3,2,'some','asf',1,42),(22,1,47,1,1,'hello','as',2,42),(23,1,23,1,1,'lklk','kjhjhjh',3,42);
+INSERT INTO `series` VALUES (21,1,30,3,2,'some','asf',1,42),(22,1,47,1,1,'hello','as',2,42),(23,1,23,1,1,'lklk','kjhjhjh',3,42),(26,1,30,1,1,'21','',1,58);
 /*!40000 ALTER TABLE `series` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,13 +199,14 @@ CREATE TABLE `sessions` (
   `shooter_id` int(10) unsigned NOT NULL,
   `caliber_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`session_id`),
+  UNIQUE KEY `session_name` (`session_name`),
   KEY `caliber_id` (`caliber_id`),
   KEY `target_id` (`target_id`),
   KEY `shooter_id` (`shooter_id`),
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`target_id`) REFERENCES `targets` (`target_id`) ON DELETE CASCADE,
   CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`shooter_id`) REFERENCES `shooters` (`shooter_id`) ON DELETE CASCADE,
-  CONSTRAINT `sessions_ibfk_3` FOREIGN KEY (`caliber_id`) REFERENCES `caliber` (`caliber_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+  CONSTRAINT `sessions_ibfk_3` FOREIGN KEY (`caliber_id`) REFERENCES `calibers` (`caliber_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +215,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (40,'2015-12-16','Test1',3,3,2),(41,'2015-12-02','jh',1,1,1),(42,'2015-12-09','try to fire',2,2,2);
+INSERT INTO `sessions` VALUES (41,'2015-12-02','jh',1,1,1),(42,'2015-12-09','try to fire',2,2,2),(43,'2016-01-13','sfsf',1,1,1),(46,'2016-01-06','fg',3,1,1),(47,'2016-01-06','asdf',3,1,1),(58,'2016-01-06','asdf2',3,1,1);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,10 +228,12 @@ DROP TABLE IF EXISTS `shooters`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shooters` (
   `shooter_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(100) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`shooter_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`shooter_id`),
+  UNIQUE KEY `nickname` (`nickname`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +242,7 @@ CREATE TABLE `shooters` (
 
 LOCK TABLES `shooters` WRITE;
 /*!40000 ALTER TABLE `shooters` DISABLE KEYS */;
-INSERT INTO `shooters` VALUES (1,'Dmytro','Krasnykh'),(2,'Alexandr','Krasnykh'),(3,'Denys','Krasnykh');
+INSERT INTO `shooters` VALUES (1,'weber','Dmytro','Krasnykh'),(2,'alexdesign','Alexandr','Krasnykh'),(7,'t-ommY','Denys','Krasnykh');
 /*!40000 ALTER TABLE `shooters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +256,8 @@ DROP TABLE IF EXISTS `targets`;
 CREATE TABLE `targets` (
   `target_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`target_id`)
+  PRIMARY KEY (`target_id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -258,7 +267,7 @@ CREATE TABLE `targets` (
 
 LOCK TABLES `targets` WRITE;
 /*!40000 ALTER TABLE `targets` DISABLE KEYS */;
-INSERT INTO `targets` VALUES (1,'target #4'),(2,'target #7'),(3,'circle'),(4,'triangle');
+INSERT INTO `targets` VALUES (3,'circle'),(1,'target #4'),(2,'target #7'),(4,'triangle');
 /*!40000 ALTER TABLE `targets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -271,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-16 21:03:01
+-- Dump completed on 2016-01-04 19:42:07

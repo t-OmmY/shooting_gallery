@@ -1,6 +1,6 @@
 <?php
 
-class AdminController
+class AdminController extends Controller
 {
     public function indexAction()
     {
@@ -43,7 +43,11 @@ class AdminController
     {
         $updateModel = new updateModel();
         $result = $updateModel->addSession($_POST);
+        if ( $result['status'] != 'Success'){
+            return $this->render('error');
+        } else {
         return ($this->newSerieFormAction($result['session_id']));
+        }
     }
 
     public function newSerieFormAction($param)
@@ -72,7 +76,11 @@ class AdminController
     {
         $updateModel = new updateModel();
         $result = $updateModel->addSerie($_POST);
-        return ($this->newHitFormAction($result));
+        if ( $result['status'] != 'Success'){
+            return $this->render('error');
+        } else {
+            return ($this->newHitFormAction($result));
+        }
     }
 
     public function newHitFormAction($param)

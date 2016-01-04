@@ -14,7 +14,7 @@
 </form>
 <br>
 <form method="post">
-    <input name="table" value="caliber" hidden>
+    <input name="table" value="calibers" hidden>
     <input name="key" value="name" hidden>
     Calibers: <select name="value">
         <?php foreach($caliber_list as $value){
@@ -77,9 +77,9 @@
     <input name="table" value="shooters" hidden>
     <input name="key" value="first_name" hidden>
     Shooters: <select name="value">
-        <?php foreach($shooter_list as $value){
+        <?php  foreach($shooter_list as $value){
             ?>
-            <option value="<?=$value['first_name']?>"><?=$value['first_name'].' '.$value['last_name']?></option>
+            <option value="<?=$value['first_name']?>"><?=$value['nickname'].' - '.$value['first_name'].' '.$value['last_name']?></option>
             <?php
         }?>
     </select>

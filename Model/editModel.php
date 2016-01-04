@@ -11,7 +11,7 @@ class editModel
 
             $sth = $db->query('SELECT color_name FROM colors ORDER BY color_id');
             $color_list = $sth->fetchAll(PDO::FETCH_ASSOC);
-            $sth = $db->query('SELECT name, diameter FROM caliber ORDER BY caliber_id');
+            $sth = $db->query('SELECT name, diameter FROM calibers ORDER BY caliber_id');
             $caliber_list = $sth->fetchAll(PDO::FETCH_ASSOC);
             $sth = $db->query('SELECT firestyle_name FROM firestyle ORDER BY firestyle_id');
             $firestyle_list = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ class editModel
             $scope_list = $sth->fetchAll(PDO::FETCH_ASSOC);
             $sth = $db->query('SELECT name FROM targets ORDER BY target_id');
             $target_list = $sth->fetchAll(PDO::FETCH_ASSOC);
-            $sth = $db->query('SELECT first_name, last_name FROM shooters ORDER BY shooter_id');
+            $sth = $db->query('SELECT nickname, first_name, last_name FROM shooters ORDER BY shooter_id');
             $shooter_list = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
