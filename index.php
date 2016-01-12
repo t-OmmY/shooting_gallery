@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // подключение конфига
 require 'config.php';
@@ -19,32 +22,37 @@ function __autoload($className)
     }
 }
 
-// принимаем запрос, создавая новые экземпляр класса Request
-$request = new Request();
+Session::start();
+
+try{
+    // принимаем запрос, создавая новые экземпляр класса Request
+    $request = new Request();
 
 // обработка роута, который задан по правилу: контроллер/действие"
-$route = $request->get('route');
+    $route = $request->get('route');
 
 // если в ГЕТе не пришло роута, то по умолчанию index/index
-if (!$route) {
-    $route = 'index/index';
-}
+    if (!$route) {
+        $route = 'index/index';
+    }
 
 // определяем названия контроллера и действия
-$route = explode('/', $route);
-$_controller = $route[0];
-$_action = $route[1];
+    $route = explode('/', $route);
+    $_controller = $route[0];
+    $_action = $route[1];
 
 // приводим названия к виду типа BookController, indexAction из Book, index (например)
-$_controller = ucfirst(strtolower($_controller)) . 'Controller';
-$_action = strtolower($_action) . 'Action';
+    $_controller = ucfirst(strtolower($_controller)) . 'Controller';
+    $_action = strtolower($_action) . 'Action';
 
 // создаем экземпляр контроллера
-$_controller = new $_controller;
+    $_controller = new $_controller;
 
 // вызываем действие для обработки запроса - оно сгенерирует динамический контент
-$content = $_controller->$_action($request);
-
+    $content = $_controller->$_action($request);
+} catch (Exception $e) {
+    $content = $e->getCode() . " : " . $e->getMessage();
+}
 
 
 require VIEW_DIR . 'layout.phtml';

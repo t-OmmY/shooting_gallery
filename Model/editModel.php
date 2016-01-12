@@ -19,7 +19,7 @@ class editModel
             $scope_list = $sth->fetchAll(PDO::FETCH_ASSOC);
             $sth = $db->query('SELECT name FROM targets ORDER BY target_id');
             $target_list = $sth->fetchAll(PDO::FETCH_ASSOC);
-            $sth = $db->query('SELECT nickname, first_name, last_name FROM shooters ORDER BY shooter_id');
+            $sth = $db->query('SELECT nickname, first_name, last_name FROM shooters WHERE nickname != "Admin" ORDER BY shooter_id');
             $shooter_list = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
@@ -109,10 +109,13 @@ class editModel
 
             $sth = $db->query('SELECT * FROM '.$param["table"].' WHERE '.$param["key"].'="'.$param["value"].'"');
             $info = $sth->fetch(PDO::FETCH_ASSOC);
-
+            if (isset($info['password'])){
+                unset($info['password']);
+            }
         } catch (PDOException $e) {
             $status = 'Fail: ' . $e->getMessage();
         }
+
         return array(
             'status' => $status,
             'info' => $info

@@ -2,6 +2,12 @@
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        if (!(Session::get('user')['nickname'] == 'Admin')) {
+            header('Location: /?route=security/login');
+        }
+    }
     public function indexAction()
     {
         $adminModel = new adminModel();
@@ -123,14 +129,14 @@ class AdminController extends Controller
     public function deleteSerieAction()
     {
         $adminModel = new adminModel();
-        $adminModel->deleteSerie($_POST);
+        $adminModel->deleteSerie();
         return ($this->selectSessionAction(new Request()));
     }
 
     public function deleteHitAction()
     {
         $adminModel = new adminModel();
-        $adminModel->deleteHit($_POST);
+        $adminModel->deleteHit();
         return ($this->selectSerieAction());
     }
 

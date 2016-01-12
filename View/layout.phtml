@@ -23,9 +23,16 @@
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="/">Home</a></li>
         <li role="presentation"><a href="?route=index/about">About</a></li>
-        <li role="presentation"><a href="?route=book/index">Books</a></li>
         <li role="presentation"><a href="?route=index/contact">Contact</a></li>
-        <li role="presentation"><a href="?route=admin/index">Admin</a></li>
+        <?php if (Session::has('user')): ?>
+        <?php if (Session::get('user')['nickname'] == 'Admin'){
+            ?><li role="presentation"><a href="?route=admin/index">Administration</a></li>
+        <?php   } ?>
+        <li role="presentation"><a href="?route=cabinet/index">My cabinet</a>
+        <li role="presentation"><a href="?route=security/logout">Logout <?=(Session::get('user')['nickname'])?></a>
+        <?php else: ?>
+        <li role="presentation"><a href="?route=security/login">Login</a>
+        <?php endif ?>
     </ul>
 </div>
 <br><br><br>

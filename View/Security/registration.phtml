@@ -1,0 +1,46 @@
+<h1>Registration</h1>
+
+<p><span style="color: red"><?=Session::getFlash()?></span></p>
+<form class="form-horizontal" method="post">
+    <div class="form-group">
+        <label for="inputNickname" class="col-sm-2 control-label">Nickname</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="nickname" value="<?=(isset($nickname)?$nickname:'')?>" id="inputNickname" placeholder="Should be unique">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputFirst_name" class="col-sm-2 control-label">First name</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="first_name" value="<?=(isset($first_name)?$first_name:'')?>" id="inputFirst_name" placeholder="Enter your first name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputLast_name" class="col-sm-2 control-label">Last name</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="last_name" value="<?=(isset($last_name)?$last_name:'')?>" id="inputLast_name" placeholder="Enter your last name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-3">
+            <input type="email" class="form-control" name="email" value="<?=(isset($email)?$email:'')?>" id="inputEmail3" placeholder="Should be unique">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-3">
+            <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="6-32 symbols">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputConfirm_Password3" class="col-sm-2 control-label">Confirm password</label>
+        <div class="col-sm-3">
+            <input type="password" class="form-control" name="confirm_password" id="inputConfirm_Password3" placeholder="One more time password">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Register me!</button>
+        </div>
+    </div>
+</form>
