@@ -1,6 +1,6 @@
 <?php
 
-class IndexController
+class IndexController extends Controller
 {
     /**
      * действие для главной странички - Home
@@ -44,7 +44,28 @@ class IndexController
      */
     public function contactAction(Request $request)
     {
-        return 'HAPPY NEW YEAR AND MERRY CHRISTMAS';
+        $arg = array();
+        if (Session::has('user')) {
+            $model = new contactModel();
+            $arg = $model->getUserEmail($_SESSION['user']);
+        }
+        if ($request->isPost()) {
+            if ($request->post('email')&&$request->post('message')){
+                $model = new contactModel();
+                $param = array(
+                    'email' => $request->post('email'),
+                    'message' => $request->post('message')
+                );
+                $result = $model->sendMessage($param);
+                if ($result['status'] == 'Success'){
+                    Session::setFlash('Message send');
+                }
+                $model->saveMessage($param);
+            } else {
+                Session::setFlash('Fill the fields');
+            }
+        }
+        return $this->render('contact', $arg);
     }
 
 }

@@ -61,11 +61,11 @@
 
 </form>
 <br>
-<form method="post" action="/?route=admin/newHitForm">
+<form method="post">
     <input name="serie_id" value="<?=$serie_info['result']['serie_id']?>" hidden>
-    <button type="button" onclick="history.back()">Back</button>
     <input name="session_id" value="<?=$_POST['session_id']?>" hidden>
-    <button>Add new Hit</button>
+    <button type="button" onclick="history.back()">Back</button>
+    <button formaction="/?route=admin/newHitForm">Add new Hit</button>
 </form>
 </body>
 </html>
