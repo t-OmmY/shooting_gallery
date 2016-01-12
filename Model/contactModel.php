@@ -24,7 +24,7 @@ class contactModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->prepare('INSERT INTO messages VALUES (null, :email, :message)');
+            $sth = $db->prepare('INSERT INTO messages VALUES (null, :email, :message, CURRENT_TIME )');
             $sth->execute($param);
 
         } catch (PDOException $e) {
