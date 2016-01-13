@@ -24,7 +24,7 @@ class contactModel
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->prepare('INSERT INTO messages VALUES (null, :email, :message, CURRENT_TIME )');
+            $sth = $db->prepare('INSERT INTO messages VALUES (null, :email, :message, now() )');
             $sth->execute($param);
 
         } catch (PDOException $e) {
@@ -37,7 +37,7 @@ class contactModel
 
     public function saveMessage($param)
     {
-        $to  = "Denys &lt;xperiask17ise@gmail.com>, " ;
+        $to  = "Denys <dvkrasnykh@ukr.net>, " ;
 
         $subject = "Contact form from Shooting Gallery";
 
@@ -52,6 +52,8 @@ class contactModel
 </html>";
 
         $headers  = "Content-type: text/html; charset=windows-1251 \r\n";
+        $headers .= "From: <xperiask17ise@gmail.com>\r\n";
+        $headers .= "Reply-To: {$param['email']}\r\n";
 
         mail($to, $subject, $message, $headers);
     }
