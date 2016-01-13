@@ -37,22 +37,14 @@ class contactModel
 
     public function saveMessage($param)
     {
-        $to  = "Denys <dvkrasnykh@ukr.net>, " ;
+        $to  = "<xperiask17ise@gmail.com>" ;
 
-        $subject = "Contact form from Shooting Gallery";
+        $subject = "From shooting gallery";
 
-        $message = "
-<html>
-    <head>
-        <title>Message from {$param['email']}:</title>
-    </head>
-    <body>
-        <p>{$param['message']}</p>
-    </body>
-</html>";
+        $message = " <p>{$param['email']} write:</p> </br> <i>{$param['message']} </i>";
 
         $headers  = "Content-type: text/html; charset=windows-1251 \r\n";
-        $headers .= "From: <xperiask17ise@gmail.com>\r\n";
+        $headers .= "From: <test@pisem.net>\r\n";
         $headers .= "Reply-To: {$param['email']}\r\n";
 
         mail($to, $subject, $message, $headers);
