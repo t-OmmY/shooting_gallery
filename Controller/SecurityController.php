@@ -22,7 +22,7 @@ class SecurityController extends Controller
                             'email' => $form -> email,
                             'password' => $password
                         );
-                        $status = $model->addLogin($params);
+                        $status = $model->addUser($params);
                         if ($status == 'Success'){
                             Session::setFlash('Well done! Now you can Login');
                             return $this->render('login', $params);
@@ -67,7 +67,7 @@ class SecurityController extends Controller
                 try {
                     $user = $model->getUser($form->nickname, $password);
                     Session::set('user', $user);
-                    header('Location: /');
+                    header('Location: /?route=cabinet/index');
                 } catch (Exception $e) {
                     Session::setFlash($e->getMessage());
                 }
@@ -89,5 +89,41 @@ class SecurityController extends Controller
     {
         Session::remove('user');
         header('Location: \?route=security/login');
+    }
+
+    public function vk_authAction()
+    {
+        $userInfo = VkAuth::processLogin();
+        $model = new securityModel();
+        $model -> checkUser($userInfo);
+        if ($userInfo){
+            unset($userInfo['password']);
+            Session::set('user', $userInfo);
+        }
+        header('Location: /?route=cabinet/index');
+    }
+
+    public function google_authAction()
+    {
+        $userInfo = GoogleAuth::processLogin();
+        $model = new securityModel();
+        $model -> checkUser($userInfo);
+        if ($userInfo){
+            unset($userInfo['password']);
+            Session::set('user', $userInfo);
+        }
+        header('Location: /?route=cabinet/index');
+
+    }
+    public function fb_authAction()
+    {
+        $userInfo = FbAuth::processLogin();
+        $model = new securityModel();
+        $model -> checkUser($userInfo);
+        if ($userInfo){
+            unset($userInfo['password']);
+            Session::set('user', $userInfo);
+        }
+        //header('Location: /?route=cabinet/index');
     }
 }

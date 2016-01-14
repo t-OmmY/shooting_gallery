@@ -3,28 +3,13 @@
 
 class contactModel
 {
-    public function getUserEmail($param)
-    {
-        $db = DbConnection::getInstance()->getPDO();
-
-        $sth = $db->prepare('SELECT email FROM shooters WHERE nickname = :nickname');
-        $sth->execute($param);
-
-        $data = $sth->fetch(PDO::FETCH_ASSOC);
-
-        if (!$data) {
-            throw new Exception('email not found');
-        }
-        return $data;
-    }
-
     public function sendMessage($param)
     {
         $status = 'Success';
         try {
             $db = DbConnection::getInstance()->getPDO();
 
-            $sth = $db->prepare('INSERT INTO messages VALUES (null, :email, :message, now() )');
+            $sth = $db->prepare('INSERT INTO messages VALUES (null, :name, :email, :message, now() )');
             $sth->execute($param);
 
         } catch (PDOException $e) {
@@ -48,5 +33,20 @@ class contactModel
         $headers .= "Reply-To: {$param['email']}\r\n";
 
         mail($to, $subject, $message, $headers);
+    }
+
+    public function getMessages()
+    {
+        $db = DbConnection::getInstance()->getPDO();
+
+        $sth = $db->prepare('SELECT name, email, message, date FROM messages ORDER BY date DESC LIMIT 3');
+        $sth->execute();
+
+        $data = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            throw new Exception('email not found');
+        }
+        return $data;
     }
 }

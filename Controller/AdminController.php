@@ -12,8 +12,13 @@ class AdminController extends Controller
     {
         $adminModel = new adminModel();
         $session_list = ($adminModel -> sessionList());
+
+        $contactModel = new contactModel();
+        $messages = $contactModel->getMessages();
+
         $arg = array(
-            'session_list'=>$session_list
+            'session_list'=>$session_list,
+            'messages'=>$messages
         );
         return $this -> render('index', $arg);
     }

@@ -46,19 +46,24 @@ class IndexController extends Controller
     {
         $arg = array();
         if (Session::has('user')) {
-            $model = new contactModel();
-            $arg = $model->getUserEmail($_SESSION['user']);
+            $arg = array(
+                'email' => Session::get('user')['email'],
+                'first_name' => Session::get('user')['first_name']
+            );
         }
         if ($request->isPost()) {
-            if ($request->post('email')&&$request->post('message')){
+            if ($request->post('email')&&$request->post('message')&&$request->post('name')){
                 $model = new contactModel();
                 $param = array(
+                    'name' => $request->post('name'),
                     'email' => $request->post('email'),
                     'message' => $request->post('message')
                 );
                 $result = $model->sendMessage($param);
                 if ($result['status'] == 'Success'){
                     Session::setFlash('Message send');
+                } else {
+                    Session::setFlash('Something wrong. Try later or send mail to <i>xperiask17ise@gmail.com</i>');
                 }
                 $model->saveMessage($param);
             } else {

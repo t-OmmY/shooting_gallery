@@ -10,6 +10,6 @@ class CabinetController
     }
     public function indexAction()
     {
-        return 'Welcome to your cabinet, '.Session::get('user')['nickname'];
+        return 'Welcome to your cabinet, '.Session::get('user')['first_name'];
     }
 }

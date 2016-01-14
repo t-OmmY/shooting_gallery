@@ -29,7 +29,7 @@
             ?><li role="presentation"><a href="?route=admin/index">Administration</a></li>
         <?php   } ?>
         <li role="presentation"><a href="?route=cabinet/index">My cabinet</a>
-        <li role="presentation"><a href="?route=security/logout">Logout <?=(Session::get('user')['nickname'])?></a>
+        <li role="presentation"><a href="?route=security/logout">Logout <?=(Session::get('user')['first_name'])?></a>
         <?php else: ?>
         <li role="presentation"><a href="?route=security/login">Login</a>
         <?php endif ?>

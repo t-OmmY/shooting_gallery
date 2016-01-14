@@ -28,3 +28,5 @@ function minus(){
     deletePlace.removeChild(newDiv);
     n--;
 }
+
+

@@ -22,6 +22,7 @@ function __autoload($className)
     }
 }
 
+
 Session::start();
 
 try{
