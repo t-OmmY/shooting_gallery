@@ -2,9 +2,9 @@
 
 class VkAuth
 {
-    private static $client_id = '5224179'; // ID приложения
-    private static $client_secret = 'cOEgdVyXkV78c5UlShre'; // Защищённый ключ
-    private static $redirect_uri = 'http://localhost/?route=security/vk_auth'; // Адрес сайта
+    private static $client_id = VK_CLIENT_ID; // ID приложения
+    private static $client_secret = VK_CLIENT_SECRET; // Защищённый ключ
+    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/vk_auth'; // Адрес сайта
 
     private static $url = 'http://oauth.vk.com/authorize';
 

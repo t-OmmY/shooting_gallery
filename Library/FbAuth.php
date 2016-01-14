@@ -2,9 +2,9 @@
 
 class FbAuth
 {
-    private static $client_id = '519013468277206'; // Client ID
-    private static $client_secret = 'd4b53a70a591a5e5010f0647c7c4cdc3'; // Client secret
-    private static $redirect_uri = 'http://localhost/?route=security/fb_auth'; // Redirect URIs
+    private static $client_id = FB_CLIENT_ID; // Client ID
+    private static $client_secret = FB_CLIENT_SECRET; // Client secret
+    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/fb_auth'; // Redirect URIs
 
     private static $url = 'https://www.facebook.com/dialog/oauth';
 

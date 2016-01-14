@@ -2,9 +2,9 @@
 
 class GoogleAuth
 {
-    private static $client_id = '365614718610-g9cl4s8ocuu6a8jo6ab11n97vn62itgv.apps.googleusercontent.com'; // Client ID
-    private static $client_secret = 'tARGeIJqMqimriES-Jn_GHhY'; // Client secret
-    private static $redirect_uri = 'http://localhost/?route=security/google_auth'; // Redirect URIs
+    private static $client_id = GOOGLE_CLIENT_ID; // Client ID
+    private static $client_secret = GOOGLE_CLIENT_SECRET; // Client secret
+    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/google_auth'; // Redirect URIs
 
     private static $url = 'https://accounts.google.com/o/oauth2/auth';
 
