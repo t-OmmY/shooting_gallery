@@ -120,6 +120,33 @@ INSERT INTO `hits` VALUES (64,21,3,3),(65,21,1,2),(70,23,456,99999994),(71,23,67
 UNLOCK TABLES;
 
 --
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `messages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `email` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+  `message` text NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `messages`
+--
+
+LOCK TABLES `messages` WRITE;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` VALUES (15,'Denys','den@urk.net','kjh','2016-01-13 17:01:30'),(16,'Admin','xperiask17ise@gmail.com','try to find some mistakes','2016-01-13 17:08:45'),(17,'Dasha','j-boo@mail.ru','Who are you?','2016-01-13 17:09:43'),(18,'John','f@ukr.net','How much it cost?','2016-01-13 17:10:07'),(19,'Jack','asdfs@urk.net','I am proud that I was here. Thanks yoou','2016-01-13 17:10:42'),(20,'ро','ton@ukr.net','just some letter','2016-01-13 17:10:55'),(21,'asdf','asdfs@urk.net','tra ra ra arla','2016-01-13 17:11:06'),(22,'Kim','denis@ukr.net','The last one have to be good one','2016-01-13 17:11:25'),(23,'Sam','f@ukr.net','hello Wolrd','2016-01-13 17:11:51'),(24,'Luijy','Luino@mail.net','Where is my Mario?','2016-01-13 17:12:42'),(25,'Admin','xperiask17ise@gmail.com','ваыдаоаоыаождлыоддддддддддддддддддд длооооооооооооооооооооооо ыдлоооооооооооооооооооооооооооооуыдло дл оызхщ шыфзал луоафрцушгмлфты баьф.юбаь жывао аждлыаолдо о  одло одоаждцкодлткафарщ л оджаожщуафладжваож оафцуоажфуаоцулаофжлуаолжуаоы','2016-01-13 17:38:49');
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `scope`
 --
 
@@ -206,7 +233,7 @@ CREATE TABLE `sessions` (
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`target_id`) REFERENCES `targets` (`target_id`) ON DELETE CASCADE,
   CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`shooter_id`) REFERENCES `shooters` (`shooter_id`) ON DELETE CASCADE,
   CONSTRAINT `sessions_ibfk_3` FOREIGN KEY (`caliber_id`) REFERENCES `calibers` (`caliber_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +242,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (42,'2015-12-09','try to fire',2,2,2),(58,'2016-01-06','Тт тоже есть что то',3,1,1),(83,'2016-01-07','Тут есть серии',3,1,1),(90,'2016-01-14','Норм имя',3,1,1);
+INSERT INTO `sessions` VALUES (42,'2015-12-09','try to fire',2,2,2),(58,'2016-01-06','Тт тоже есть что то',3,1,1),(83,'2016-01-07','Тут есть серии',3,1,1),(90,'2016-01-14','Норм имя',3,1,1),(91,'2016-01-12','test ses',3,0,1);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,12 +258,12 @@ CREATE TABLE `shooters` (
   `nickname` varchar(100) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `password` varchar(32) NOT NULL,
   PRIMARY KEY (`shooter_id`),
   UNIQUE KEY `nickname` (`nickname`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +272,7 @@ CREATE TABLE `shooters` (
 
 LOCK TABLES `shooters` WRITE;
 /*!40000 ALTER TABLE `shooters` DISABLE KEYS */;
-INSERT INTO `shooters` VALUES (0,'Admin','Admin','Admin','xperiask17ise@gmail.com','5fc7f41d0f76f006141df89b92018dfe'),(1,'weber','Dmytro','Krasnykh','web@ukr.net','70a266e23c90409e4521fc3631e4ce80'),(2,'alexdesign','Alexandr','Krasnykh','alex@ukr.net','70a266e23c90409e4521fc3631e4ce80'),(7,'t-ommY','Denys','Krasnykh','den@urk.net','70a266e23c90409e4521fc3631e4ce80');
+INSERT INTO `shooters` VALUES (0,'Admin','Admin','Admin','dvkrasnykh@ukr.net','5fc7f41d0f76f006141df89b92018dfe'),(1,'weber','Dmytro','Krasnykh','web@ukr.net','70a266e23c90409e4521fc3631e4ce80'),(2,'alexdesign','Alexandr','Krasnykh','alex@ukr.net','70a266e23c90409e4521fc3631e4ce80'),(7,'t-ommY','Denys','Krasnykh','den@urk.net','70a266e23c90409e4521fc3631e4ce80'),(14,'say_nani','Даша','Дейнекова',NULL,'vk_id10407424'),(25,'Денис66092230','Денис','Краснов',NULL,'vk_id66092230'),(27,'Денис113379253969686637383','Денис','Красных','xperiask17ise@gmail.com','Google_id113379253969686637383'),(28,'tommy','Danyla','sdf','foo@ukr.net','bd7b5533ae31096557d516cb92b6a924');
 /*!40000 ALTER TABLE `shooters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,4 +310,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-12 22:03:12
+-- Dump completed on 2016-01-14 21:43:32
