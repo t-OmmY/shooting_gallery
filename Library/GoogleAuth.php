@@ -4,7 +4,7 @@ class GoogleAuth
 {
     private static $client_id = GOOGLE_CLIENT_ID; // Client ID
     private static $client_secret = GOOGLE_CLIENT_SECRET; // Client secret
-    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/google_auth'; // Redirect URIs
+    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/Library/GoogleAuth.php'; // Redirect URIs
 
     private static $url = 'https://accounts.google.com/o/oauth2/auth';
 
@@ -25,10 +25,8 @@ class GoogleAuth
 
     public static function processLogin()
     {
-
         if (isset($_GET['code'])) {
-            $result = false;
-
+            require_once '../config.php';
             $params = array(
                 'client_id' => self::$client_id,
                 'client_secret' => self::$client_secret,
@@ -61,16 +59,13 @@ class GoogleAuth
                         'last_name' => $userInfo['family_name'],
                         'password' => 'Google_id'.$userInfo['id']
                     );
-                    $result = true;
+                    require_once 'Session.php';
+                    session_start();
+                    Session::set('user', $userInfo);
+                    header('Location: /?route=security/social_auth');
                 }
             }
-            if ($result) {
-                return $userInfo;
-            } else {
-                return false;
-            }
-
         }
     }
 }
-
+GoogleAuth::processLogin();

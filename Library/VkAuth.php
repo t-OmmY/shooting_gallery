@@ -4,7 +4,7 @@ class VkAuth
 {
     private static $client_id = VK_CLIENT_ID; // ID приложения
     private static $client_secret = VK_CLIENT_SECRET; // Защищённый ключ
-    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/vk_auth'; // Адрес сайта
+    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/Library/VkAuth.php'; // Адрес сайта
 
     private static $url = 'http://oauth.vk.com/authorize';
 
@@ -25,7 +25,7 @@ class VkAuth
     public static function processLogin()
     {
         if (isset($_GET['code'])) {
-            $result = false;
+            require_once '../config.php';
             $params = array(
                 'client_id' => self::$client_id,
                 'client_secret' => self::$client_secret,
@@ -51,17 +51,14 @@ class VkAuth
                         'last_name' => $userInfo['response'][0]['last_name'],
                         'password' => 'vk_id'.$userInfo['response'][0]['uid']
                     );
-                    $result = true;
+                    require_once 'Session.php';
+                    session_start();
+                    Session::set('user', $userInfo);
+                    header('Location: /?route=security/social_auth');
                 }
             }
-            if ($result) {
-                return $userInfo;
-            } else {
-                return false;
-            }
         }
-
     }
 }
-
+VkAuth::processLogin();
 

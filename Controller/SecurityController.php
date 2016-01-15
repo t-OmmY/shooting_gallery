@@ -91,39 +91,11 @@ class SecurityController extends Controller
         header('Location: \?route=security/login');
     }
 
-    public function vk_authAction()
+    public function social_authAction()
     {
-        $userInfo = VkAuth::processLogin();
-        $model = new securityModel();
-        $model -> checkUser($userInfo);
-        if ($userInfo){
-            unset($userInfo['password']);
-            Session::set('user', $userInfo);
-        }
+        $model = new securityModel();;
+        $model -> checkUser(Session::get('user'));
+        unset($_SESSION['user']['password']);
         header('Location: /?route=cabinet/index');
-    }
-
-    public function google_authAction()
-    {
-        $userInfo = GoogleAuth::processLogin();
-        $model = new securityModel();
-        $model -> checkUser($userInfo);
-        if ($userInfo){
-            unset($userInfo['password']);
-            Session::set('user', $userInfo);
-        }
-        header('Location: /?route=cabinet/index');
-
-    }
-    public function fb_authAction()
-    {
-        $userInfo = FbAuth::processLogin();
-        $model = new securityModel();
-        $model -> checkUser($userInfo);
-        if ($userInfo){
-            unset($userInfo['password']);
-            Session::set('user', $userInfo);
-        }
-        //header('Location: /?route=cabinet/index');
     }
 }

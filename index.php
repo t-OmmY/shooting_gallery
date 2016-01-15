@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // подключение конфига
-require 'config.php';
+require_once 'config.php';
 
 
 // автозагрузка классов - перебираем каждый каталог, где могут лежать классы, и подключаем, если находим

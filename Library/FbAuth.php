@@ -4,7 +4,7 @@ class FbAuth
 {
     private static $client_id = FB_CLIENT_ID; // Client ID
     private static $client_secret = FB_CLIENT_SECRET; // Client secret
-    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/?route=security/fb_auth'; // Redirect URIs
+    private static $redirect_uri = 'http://localhost/Library/FbAuth.php'; // Redirect URIs
 
     private static $url = 'https://www.facebook.com/dialog/oauth';
 
@@ -13,19 +13,38 @@ class FbAuth
         return array(
             'client_id'     => self::$client_id,
             'redirect_uri'  => self::$redirect_uri,
-            'response_type' => 'code'
+            'response_type' => 'code',
+            'scope'         => 'email,user_birthday,user_posts'
         );
+    }
+
+    private static function get_curl($url)
+    {
+        if(function_exists('curl_init')) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $output = curl_exec($ch);
+            echo curl_error($ch);
+            curl_close($ch);
+            return $output;
+        } else {
+            return file_get_contents($url);
+        }
     }
 
     public static function getLoginButton()
     {
-        return $link = '<a href="' . self::$url . '?' . urldecode(http_build_query(self::getLoginParams())) . '"><img src="../helpers/img/facebook.png" width="30" title="Get in with Facebook"></a>';
+        return $link = '<a href="' . self::$url . '?' . urldecode(http_build_query(self::getLoginParams())) . '"><img src="../helpers/img/facebook.png" width="30" title="Get in with Vkontakte"></a>';
     }
 
     public static function processLogin()
     {
-        if (isset($_GET['code'])) {
-            $result = false;
+        if ( isset($_GET['code']))  {
+            require_once '../config.php';
             $params = array(
                 'client_id'     => self::$client_id,
                 'redirect_uri'  => self::$redirect_uri,
@@ -34,34 +53,29 @@ class FbAuth
             );
 
             $url = 'https://graph.facebook.com/oauth/access_token';
-
             $tokenInfo = null;
+
             parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
-
             if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
-                $params = array('access_token' => $tokenInfo['access_token']);
-
-                $userInfo = json_decode(file_get_contents('https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params))), true);
-
-                if (isset($userInfo['id'])) {
-                    $user = explode('  ', $userInfo['name']);
-                    $userInfo = array(
-                        'nickname' => $user[0].$userInfo['id'],
-                        'email' => null,
-                        'first_name' => $user[0],
-                        'last_name' => $user[1],
-                        'password' => 'fb_id'.$userInfo['id']
-                    );
-                    $result = true;
-                }
+                $params = array(
+                    'access_token' => $tokenInfo['access_token']
+                );
+                $url = 'https://graph.facebook.com/me';
+                $userInfo = json_decode(self::get_curl($url. '?' . urldecode(http_build_query($params))), true);
+                $user = explode('  ', $userInfo['name']);
+                $userInfo = array(
+                    'nickname' => $user[0].$userInfo['id'],
+                    'email' => null,
+                    'first_name' => $user[0],
+                    'last_name' => $user[1],
+                    'password' => 'fb_id'.$userInfo['id']
+                );
+                require_once 'Session.php';
+                session_start();
+                Session::set('user', $userInfo);
+                header('Location: /?route=security/social_auth');
             }
-            if ($result) {
-                $user['nickname'] = $userInfo['nickname'];
-                Session::set('user', $user);
-            }
-            return $userInfo;
         }
-
     }
 }
-
+FbAuth::processLogin();
