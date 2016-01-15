@@ -4,14 +4,15 @@ class GoogleAuth
 {
     private static $client_id = GOOGLE_CLIENT_ID; // Client ID
     private static $client_secret = GOOGLE_CLIENT_SECRET; // Client secret
-    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/Library/GoogleAuth.php'; // Redirect URIs
+    private static $redirect_path = '/Library/GoogleAuth.php';
+    private static $redirect_host = REDIRECT_URI_HOST; // Redirect URIs
 
     private static $url = 'https://accounts.google.com/o/oauth2/auth';
 
     public static function getLoginParams()
     {
         return array(
-            'redirect_uri'  => self::$redirect_uri,
+            'redirect_uri'  => 'http://' . self::$redirect_host . self::$redirect_path,
             'response_type' => 'code',
             'client_id'     => self::$client_id,
             'scope'         => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
@@ -30,7 +31,7 @@ class GoogleAuth
             $params = array(
                 'client_id' => self::$client_id,
                 'client_secret' => self::$client_secret,
-                'redirect_uri' => self::$redirect_uri,
+                'redirect_uri' => 'http://' . self::$redirect_host . self::$redirect_path,
                 'grant_type' => 'authorization_code',
                 'code' => $_GET['code']
             );

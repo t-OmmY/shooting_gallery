@@ -4,7 +4,8 @@ class VkAuth
 {
     private static $client_id = VK_CLIENT_ID; // ID приложения
     private static $client_secret = VK_CLIENT_SECRET; // Защищённый ключ
-    private static $redirect_uri = 'http://'.REDIRECT_URI_HOST.'/Library/VkAuth.php'; // Адрес сайта
+    private static $redirect_path = '/Library/VkAuth.php';
+    private static $redirect_host = REDIRECT_URI_HOST; // Адрес сайта
 
     private static $url = 'http://oauth.vk.com/authorize';
 
@@ -12,7 +13,7 @@ class VkAuth
     {
         return array(
             'client_id'     => self::$client_id,
-            'redirect_uri'  => self::$redirect_uri,
+            'redirect_uri'  => 'http://' . self::$redirect_host . self::$redirect_path,
             'response_type' => 'code'
         );
     }
@@ -30,7 +31,7 @@ class VkAuth
                 'client_id' => self::$client_id,
                 'client_secret' => self::$client_secret,
                 'code' => $_GET['code'],
-                'redirect_uri' => self::$redirect_uri
+                'redirect_uri' => 'http://' . self::$redirect_host . self::$redirect_path
             );
 
             $token = json_decode(file_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))), true);

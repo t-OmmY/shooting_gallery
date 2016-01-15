@@ -4,7 +4,8 @@ class FbAuth
 {
     private static $client_id = FB_CLIENT_ID; // Client ID
     private static $client_secret = FB_CLIENT_SECRET; // Client secret
-    private static $redirect_uri = 'http://localhost/Library/FbAuth.php'; // Redirect URIs
+    private static $redirect_path = '/Library/FbAuth.php';
+    private static $redirect_host = REDIRECT_URI_HOST; // Redirect URIs
 
     private static $url = 'https://www.facebook.com/dialog/oauth';
 
@@ -12,7 +13,7 @@ class FbAuth
     {
         return array(
             'client_id'     => self::$client_id,
-            'redirect_uri'  => self::$redirect_uri,
+            'redirect_uri'  => 'http://' . self::$redirect_host . self::$redirect_path,
             'response_type' => 'code',
             'scope'         => 'email,user_birthday,user_posts'
         );
@@ -47,7 +48,7 @@ class FbAuth
             require_once '../config.php';
             $params = array(
                 'client_id'     => self::$client_id,
-                'redirect_uri'  => self::$redirect_uri,
+                'redirect_uri'  => 'http://' . self::$redirect_host . self::$redirect_path,
                 'client_secret' => self::$client_secret,
                 'code'          => $_GET['code']
             );
