@@ -88,7 +88,7 @@ class SecurityController extends Controller
     public function logoutAction(Request $request)
     {
         Session::remove('user');
-        header('Location: \?route=security/login');
+        header('Location: /?route=security/login');
     }
 
     public function social_authAction()
