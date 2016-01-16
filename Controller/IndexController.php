@@ -59,13 +59,13 @@ class IndexController extends Controller
                     'email' => $request->post('email'),
                     'message' => $request->post('message')
                 );
-                $result = $model->sendMessage($param);
-                if ($result['status'] == 'Success'){
+                $save_result = $model->saveMessage($param);
+                $send_result = $model->sendMessage($param);
+                if ($save_result['status'] == 'Success' && $send_result){
                     Session::setFlash('Message send');
                 } else {
                     Session::setFlash('Something wrong. Try later or send mail to <i>xperiask17ise@gmail.com</i>');
                 }
-                $model->saveMessage($param);
             } else {
                 Session::setFlash('Fill the fields');
             }

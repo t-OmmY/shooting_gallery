@@ -3,7 +3,7 @@
 
 class contactModel
 {
-    public function sendMessage($param)
+    public function saveMessage($param)
     {
         $status = 'Success';
         try {
@@ -20,19 +20,36 @@ class contactModel
         );
     }
 
-    public function saveMessage($param)
+    public function sendMessage($param)
     {
-        $to  = "<xperiask17ise@gmail.com>" ;
+        require_once('PHPMailer-master/PHPMailerAutoload.php');
 
-        $subject = "From shooting gallery";
+        $mail=new PHPMailer();
+        $mail->CharSet = 'UTF-8';
 
-        $message = " <p>{$param['email']} write:</p> </br> <i>{$param['message']} </i>";
+        $body = "<b>{$param['name']}</b> write: <p>{$param['message']}</p> <i>To contact me, use {$param['email']}</i>";
 
-        $headers  = "Content-type: text/html; charset=windows-1251 \r\n";
-        $headers .= "From: <test@pisem.net>\r\n";
-        $headers .= "Reply-To: {$param['email']}\r\n";
+        $mail->IsSMTP();
+        $mail->Host       = 'smtp.gmail.com';
 
-        mail($to, $subject, $message, $headers);
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+        $mail->SMTPDebug  = 0;
+        $mail->SMTPAuth   = true;
+
+        $mail->Username   = 'xperiask17ise@gmail.com';
+        $mail->Password   = 'tommybiggun';
+
+        $mail->SetFrom('xperiask17ise@gmail.com', 'Денис');
+        $mail->AddReplyTo($param['email'],'no-reply');
+        $mail->Subject    = 'Shooter Gallery Contact Form';
+        $mail->MsgHTML($body);
+
+        $mail->AddAddress('xperiask17ise@gmail.com', 'Shooting Admin'); // куда отправлять и как он будет подписан
+
+        //$mail->AddAttachment($fileName); // если нужно прикреплять файл
+        return $mail->send();
+
     }
 
     public function getMessages()

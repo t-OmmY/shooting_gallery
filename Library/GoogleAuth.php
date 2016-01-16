@@ -35,7 +35,6 @@ class GoogleAuth
                 'grant_type' => 'authorization_code',
                 'code' => $_GET['code']
             );
-
             $url = 'https://accounts.google.com/o/oauth2/token';
 
             $curl = curl_init();
