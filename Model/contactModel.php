@@ -22,7 +22,7 @@ class contactModel
 
     public function sendMessage($param)
     {
-        require_once('PHPMailer-master/PHPMailerAutoload.php');
+        require_once('Library/PHPMailer-master/PHPMailerAutoload.php');
 
         $mail=new PHPMailer();
         $mail->CharSet = 'UTF-8';
@@ -56,7 +56,7 @@ class contactModel
     {
         $db = DbConnection::getInstance()->getPDO();
 
-        $sth = $db->prepare('SELECT name, email, message, date FROM messages ORDER BY date DESC LIMIT 3');
+        $sth = $db->prepare('SELECT name, email, message, date FROM messages ORDER BY date DESC LIMIT 5');
         $sth->execute();
 
         $data = $sth->fetchAll(PDO::FETCH_ASSOC);

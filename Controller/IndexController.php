@@ -19,7 +19,7 @@ class IndexController extends Controller
         // очистка буфера и возврат строки с динамческим контентом
         return ob_get_clean();
 */
-        return 'Happy BirthDAY!!!';
+        return "<iframe width=\"854\" height=\"480\" src=\"https://www.youtube.com/embed/U-x2jBbmSso\" frameborder=\"0\" allowfullscreen></iframe>";
     }
 
 
@@ -32,7 +32,7 @@ class IndexController extends Controller
     public function aboutAction(Request $request)
     {
 
-        return '!!!!34!!!!';
+        return "<b>Lorem Ipsum</b> <p>tas ir teksta salikums, kuru izmanto poligrāfijā un maketēšanas darbos. Lorem Ipsum ir kļuvis par vispārpieņemtu teksta aizvietotāju kopš 16. gadsimta sākuma. Tajā laikā kāds nezināms iespiedējs izveidoja teksta fragmentu, lai nodrukātu grāmatu ar burtu paraugiem. Tas ir ne tikai pārdzīvojis piecus gadsimtus, bet bez ievērojamām izmaiņām saglabājies arī mūsdienās, pārejot uz datorizētu teksta apstrādi. Tā popularizēšanai 60-tajos gados kalpoja Letraset burtu paraugu publicēšana ar Lorem Ipsum teksta fragmentiem un, nesenā pagātnē, tādas maketēšanas programmas kā Aldus PageMaker, kuras šablonu paraugos ir izmantots Lorem Ipsum teksts.</p>";
     }
 
 

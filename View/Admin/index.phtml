@@ -4,6 +4,7 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="../../Js/scripts.js"></script>
+    <script type="text/javascript" src="../../Js/AJAX.js"></script>
 </head>
 <body>
 <form method="post" action="/?route=admin/selectSession">
@@ -41,7 +42,7 @@
 <br><br><hr>
 <h4>Contact form messages: </h4>
 <?php   foreach ($messages as $message) {  ?>
-    <div class="row">
+    <div class="row" id="articles">
         <div class="col-md-12 col-md-offset-0">
             <blockquote>
                 <i style="font-size: 10px"><?=$message['date']?></i><br>
