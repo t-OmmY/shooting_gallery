@@ -37,9 +37,9 @@ $(document).ready(function(){
                     $.each(messages, function(index, messages){
 
                         /* Отбираем по идентификатору блок со статьями и дозаполняем его новыми данными */
-                        $("#articles").append(                            "<div class='col-md-12 col-md-offset-0'>" +
+                        $("#articles").append("<div class='col-md-12 col-md-offset-0'>" +
                             "<blockquote>"+
-                            "<i style='font-size: 10px'>" + messages.date + "</i><br>" + messages.name + "<span style='font-size: 14px'>write: </span> <footer><br><i>" +
+                            "<i style='font-size: 10px'>" + messages.date + "</i><br>" + messages.name + "<span style='font-size: 14px'>&nbsp;write:</span> <footer><br><i>" +
                             messages.message + "</i><br><span style='font-size: 10px'>" + messages.email + "</span></footer></blockquote></div>"
                         );
                     });
@@ -48,7 +48,49 @@ $(document).ready(function(){
                     inProgress = false;
                     // Увеличиваем на 10 порядковый номер статьи, с которой надо начинать выборку из базы
                     startFrom += 5;
-                }});
+                }
+            });
         }
     });
 });
+
+
+$(document).ready(function(){
+
+    $('#sessionSelect').change(function() {
+        $("#dinamicInfo").children().hide(800);
+        $("#dinamicPic").children().hide(800);
+        $.ajax({
+
+            url: '../Library/AJAXselectSession.php',
+
+            method: 'POST',
+
+            data : { "session_id": $(this).val() }
+
+        }).done(function(session_info){
+            session_info = jQuery.parseJSON(session_info);
+            $("#dinamicInfo").append(
+                "<h4>Session&nbsp;info</h4><div class'col-xs-4'>" +
+                "date:&nbsp;" + session_info.date +
+                "<br>name:&nbsp;" + session_info.session_name +
+                "<br>target:&nbsp;" + session_info.target_name +
+                "<br>caliber:&nbsp;" + session_info.caliber_name + "&nbsp;diameter&nbsp;" + session_info.caliber_diameter +
+                "</div>"
+            );
+            $("#dinamicPic").append(
+                "<div class'col-xs-6'>" +
+                "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width='600px'>" +
+                "</div>"
+            );
+            $.each(session_info.hits, function(index, hit){
+                $("#dinamicPic").append(
+                    "<div class'col-xs-6'>" +
+                    "<img src='../helpers/img/mycabinet/Pointers/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
+                    "</div>"
+                )
+            });
+        });
+    });
+});
+

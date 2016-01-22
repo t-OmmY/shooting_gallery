@@ -41,8 +41,8 @@
 </form>
 <br><br><hr>
 <h4>Contact form messages: </h4>
-<?php   foreach ($messages as $message) {  ?>
     <div class="row" id="articles">
+        <?php   foreach ($messages as $message) {  ?>
         <div class="col-md-12 col-md-offset-0">
             <blockquote>
                 <i style="font-size: 10px"><?=$message['date']?></i><br>
@@ -53,7 +53,8 @@
                 </footer>
             </blockquote>
         </div>
+        <?php    }    ?>
     </div>
-<?php    }    ?>
+
 </body>
 </html>

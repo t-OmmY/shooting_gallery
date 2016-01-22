@@ -1,6 +1,6 @@
 <?php
 
-class CabinetController
+class CabinetController extends Controller
 {
     public function __construct()
     {
@@ -8,8 +8,12 @@ class CabinetController
             header('Location: /?route=security/login');
         }
     }
+
     public function indexAction()
     {
-        return 'Welcome to your cabinet, '.Session::get('user')['first_name'];
+        $model = new cabinetModel();
+        $arg = $model->getUserSessionList(Session::get('user')['nickname']);
+        return $this->render('index', $arg);
     }
+
 }

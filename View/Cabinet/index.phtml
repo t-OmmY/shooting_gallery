@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="Js/AJAX.js"></script>
+</head>
+<body>
+
+<div class="col-xs-9">
+    Welcome to your cabinet, <?=Session::get('user')['first_name']?>
+</div>
+<div class="row">
+    <div class="col-xs-9">
+        <?php
+        if (boolval($result)){
+        ?>
+        <h3>You can see your results:</h3>
+        select session:
+        <select id="sessionSelect" name="session">
+            <option disabled selected>open me</option>
+            <?php
+            foreach ($result as $i){
+                ?><option value="<?=$i['session_id']?>"><?=($i['date']).' - '.$i['session_name']?></option>
+            <?php     }      ?>
+
+        </select>
+            <?php
+        } else {
+            echo '<h3>It is no any results yet</h3>';
+        }
+        ?>
+    </div>
+    <div>
+        <div class="col-xs-4" id="dinamicInfo">
+            <span><br><p>In tegenstelling tot wat algemeen aangenomen wordt is Lorem Ipsum niet zomaar willekeurige tekst.
+                het heeft zijn wortels in een stuk klassieke latijnse literatuur uit 45 v.Chr. en is dus meer dan 2000 jaar oud.</p>
+                Richard McClintock, een professor latijn aan de Hampden-Sydney College in Virginia, heeft één van de meer obscure
+                latijnse woorden, consectetur, uit een Lorem Ipsum passage opgezocht, en heeft tijdens het zoeken naar het woord
+                de klassieke literatuur de onverdachte bron ontdekt. Lorem Ipsum komt uit de secties 1.10.32 en 1.10.33 van "de
+                Finibus Bonorum et Malorum" (De uitersten van goed en kwaad) door Cicero, geschreven in 45 v.Chr.
+                Dit boek is een verhandeling over de theorie der ethiek, erg populair tijdens de renaissance.
+                De eerste regel van Lorem Ipsum, "Lorem ipsum dolor sit amet..", komt uit een zin in sectie 1.10.32.
+
+                <p>Het standaard stuk van Lorum Ipsum wat sinds de 16e eeuw wordt gebruikt is hieronder, voor wie er interesse in heeft, weergegeven.
+                Secties 1.10.32 en 1.10.33 van "de Finibus Bonorum et Malorum" door Cicero zijn ook weergegeven in hun exacte
+                originele vorm, vergezeld van engelse versies van de 1914 vertaling door H. Rackham.</p>
+            </span>
+        </div>
+        <div class="col-xs-6" id="dinamicPic">
+            <img src="helpers/img/mycabinet/background.jpg" width="600px">
+        </div>
+    </div>
+</div>
+<div class="col-xs-9">
+    <h3>Statistic</h3>
+    тут будут всякие графики
+    <img src="helpers/temp/график 1.png" width="100%">
+    <img src="helpers/temp/график2.png" width="100%">
+</div>
+</body>
+</html>
+
+
