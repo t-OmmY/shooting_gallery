@@ -57,7 +57,7 @@ class adminModel
     public function forNewSerie($param)
     {
         $number = self::select('SELECT count(*) as number FROM series WHERE session_id='.$param, 'fetch');
-        $color_info = self::select('SELECT color_name FROM colors');
+        $color_info = self::select("SELECT color_name FROM colors WHERE color_id not in(SELECT color_id FROM series WHERE session_id = {$param})");
         $scope_info = self::select('SELECT scope_name FROM scope');
         $firesyle_info = self::select('SELECT firestyle_name FROM firestyle');
         return array(

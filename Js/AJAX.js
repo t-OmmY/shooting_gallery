@@ -93,12 +93,24 @@ $(document).ready(function(){
                 "</div>"
             );
             $.each(session_info.hits, function(index, hit){
-                $("#dinamicPic").append(
-                    "<div class='hits'>" +
-                    "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                    //"<img src='../helpers/img/mycabinet/Pointers/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
-                    "</div>"
-                )
+                if (Number(hit.x) > 600){
+                    $("#dinamicPic").append(
+                        "<div class='hits'>" +
+                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (600+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                        "</div>")
+                } else if (Number(hit.y) > 600) {
+                    $("#dinamicPic").append(
+                        "<div class='hits'>" +
+                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (600-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                        "</div>")
+                } else {
+                    $("#dinamicPic").append(
+                        "<div class='hits'>" +
+                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                            //"<img src='../helpers/img/mycabinet/Pointers/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
+                        "</div>"
+                    )
+                }
             });
         });
     });
@@ -129,12 +141,24 @@ $("body").on("change", "#dinamic_option", function () {
             "</div>"
         );
         $.each(serie_info.hits, function(index, hit){
-            $("#dinamicPic").append(
-                "<div class='hits'>" +
-                "<img src='../helpers/img/mycabinet/Hits/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                //"<img src='../helpers/img/mycabinet/Pointers/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
-                "</div>"
-            )
+            if (Number(hit.x) > 600){
+                $("#dinamicPic").append(
+                    "<div class='hits'>" +
+                    "<img src='../helpers/img/mycabinet/Hits/"+ serie_info.color_name+".png' style='position:absolute;left:"+ (600+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                    "</div>")
+            } else if (Number(hit.y) > 600) {
+                $("#dinamicPic").append(
+                    "<div class='hits'>" +
+                    "<img src='../helpers/img/mycabinet/Hits/"+ serie_info.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (600-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                    "</div>")
+            } else {
+                $("#dinamicPic").append(
+                    "<div class='hits'>" +
+                    "<img src='../helpers/img/mycabinet/Hits/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
+                        //"<img src='../helpers/img/mycabinet/Pointers/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
+                    "</div>"
+                )
+            }
         });
     });
 });
