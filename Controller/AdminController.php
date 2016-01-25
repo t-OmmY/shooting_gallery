@@ -23,6 +23,13 @@ class AdminController extends Controller
         return $this -> render('index', $arg);
     }
 
+    public function ajax_contact_messagesAction()
+    {
+        $startFrom = $_POST['startFrom'];
+        $model = new contactModel();
+        echo json_encode($model->ajax_contact_messages($startFrom));
+    }
+
     public function newSessionFormAction()
     {
         $adminModel = new adminModel();

@@ -29,22 +29,29 @@ try{
     // принимаем запрос, создавая новые экземпляр класса Request
     $request = new Request();
 
+    if (isset ($_POST['ajax'])){
+        $_controller = ucfirst(strtolower($request->post('controller'))) . 'Controller';
+        $_action = strtolower($request->post('action')) . 'Action';
+    } else {
+
 // обработка роута, который задан по правилу: контроллер/действие"
-    $route = $request->get('route');
+        $route = $request->get('route');
 
 // если в ГЕТе не пришло роута, то по умолчанию index/index
-    if (!$route) {
-        $route = 'index/index';
-    }
+        if (!$route) {
+            $route = 'index/index';
+        }
 
 // определяем названия контроллера и действия
-    $route = explode('/', $route);
-    $_controller = $route[0];
-    $_action = $route[1];
+        $route = explode('/', $route);
+        $_controller = $route[0];
+        $_action = $route[1];
 
 // приводим названия к виду типа BookController, indexAction из Book, index (например)
-    $_controller = ucfirst(strtolower($_controller)) . 'Controller';
-    $_action = strtolower($_action) . 'Action';
+        $_controller = ucfirst(strtolower($_controller)) . 'Controller';
+        $_action = strtolower($_action) . 'Action';
+
+    }
 
 // создаем экземпляр контроллера
     $_controller = new $_controller;
@@ -55,5 +62,7 @@ try{
     $content = $e->getCode() . " : " . $e->getMessage();
 }
 
+if (!isset($_POST['ajax'])){
+    require VIEW_DIR . 'layout.phtml';
+}
 
-require VIEW_DIR . 'layout.phtml';

@@ -66,4 +66,20 @@ class contactModel
         }
         return $data;
     }
+
+    public function ajax_contact_messages($startFrom)
+    {
+        $db = DbConnection::getInstance()->getPDO();
+
+        $sth = $db->prepare("SELECT name, email, message, date FROM messages ORDER BY date DESC LIMIT {$startFrom}, 5");
+        $sth->execute();
+
+        $messages = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$messages) {
+            throw new Exception('email not found');
+        }
+        return $messages;
+
+    }
 }

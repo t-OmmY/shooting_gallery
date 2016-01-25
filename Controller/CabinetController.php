@@ -16,4 +16,17 @@ class CabinetController extends Controller
         return $this->render('index', $arg);
     }
 
+    public function ajax_select_sessionAction(Request $request)
+    {
+        $session_id = $request->post('session_id');
+        $model = new cabinetModel();
+        echo json_encode($model->ajax_select_session($session_id));
+    }
+
+    public function ajax_select_serieAction(Request $request)
+    {
+        $serie_id = $request->post('serie_id');
+        $model = new cabinetModel();
+        echo json_encode($model->ajax_select_serie($serie_id));
+    }
 }
