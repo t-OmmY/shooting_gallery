@@ -54,6 +54,24 @@ $(document).ready(function(){
     });
 });
 
+//hit_print function
+function hit_print (pass_to_pic, file_extension, color_name, x, y, shotWidth, shotHeight, picWidth, picHeight, title_x, title_y){
+    $("#dinamicPic").append(
+        "<div class='hits'>" +
+        "<img src='" + pass_to_pic + color_name+ file_extension + "' style='position:absolute;left:"+ (Number(x)+picWidth/2-shotWidth/2+15) +"px;top:"+ (Number(y)+picHeight/2-shotHeight/2) +"px' title='x:&nbsp;"+ title_x +", y:&nbsp;"+ title_y +"' width='" + shotWidth + "px' height='" +  shotHeight + "px'>" +
+        "</div>"
+    )
+}
+//end of hit function
+//params for hit
+var picHeight = 600;
+var picWidth = 600;
+var coridor = 10;
+var shotHeight = 30;
+var shotWidth = 30;
+var picPass = '../helpers/img/mycabinet/Hits/';
+var picExtention = '.png';
+//end of params
 $(document).ready(function(){
 
     $('#sessionSelect').change(function() {
@@ -89,27 +107,32 @@ $(document).ready(function(){
             });
             $("#dinamicPic").append(
                 "<div>" +
-                "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width='600px' style='opacity:0.5'>" +
+                "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width=" + picWidth + " height=" + picHeight + " style='opacity:0.5'>" +
                 "</div>"
             );
             $.each(session_info.hits, function(index, hit){
-                if (Number(hit.x) > 600){
-                    $("#dinamicPic").append(
-                        "<div class='hits'>" +
-                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (600+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                        "</div>")
-                } else if (Number(hit.y) > 600) {
-                    $("#dinamicPic").append(
-                        "<div class='hits'>" +
-                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (600-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                        "</div>")
+                if (Number(hit.x)>picWidth/2) {
+                    if (Number(hit.y)>picHeight/2){
+                        hit_print(picPass,picExtention,hit.color_name,picWidth/2+coridor,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    } else if (Number(hit.y)<-picHeight/2){
+                        hit_print(picPass,picExtention,hit.color_name,picWidth/2+coridor,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    } else {
+                        hit_print(picPass,picExtention,hit.color_name,picWidth/2+coridor,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    }
+                } else if (Number(hit.x)<-picWidth/2){
+                    if (Number(hit.y)<-picHeight/2){
+                        hit_print(picPass,picExtention,hit.color_name,-picWidth/2-coridor,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    } else if (Number(hit.y)>picHeight/2){
+                        hit_print(picPass,picExtention,hit.color_name,-picWidth/2-coridor,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    } else {
+                        hit_print(picPass,picExtention,hit.color_name,-picWidth/2-coridor,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                    }
+                } else if (Number(hit.y)>picHeight/2){
+                    hit_print(picPass,picExtention,hit.color_name,hit.x,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                } else if (Number(hit.y)<-picHeight/2){
+                    hit_print(picPass,picExtention,hit.color_name,hit.x,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
                 } else {
-                    $("#dinamicPic").append(
-                        "<div class='hits'>" +
-                        "<img src='../helpers/img/mycabinet/Hits/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                            //"<img src='../helpers/img/mycabinet/Pointers/"+ hit.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
-                        "</div>"
-                    )
+                    hit_print(picPass,picExtention,hit.color_name,hit.x,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
                 }
             });
         });
@@ -141,23 +164,28 @@ $("body").on("change", "#dinamic_option", function () {
             "</div>"
         );
         $.each(serie_info.hits, function(index, hit){
-            if (Number(hit.x) > 600){
-                $("#dinamicPic").append(
-                    "<div class='hits'>" +
-                    "<img src='../helpers/img/mycabinet/Hits/"+ serie_info.color_name+".png' style='position:absolute;left:"+ (600+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                    "</div>")
-            } else if (Number(hit.y) > 600) {
-                $("#dinamicPic").append(
-                    "<div class='hits'>" +
-                    "<img src='../helpers/img/mycabinet/Hits/"+ serie_info.color_name+".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (600-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                    "</div>")
+            if (Number(hit.x)>picWidth/2) {
+                if (Number(hit.y)>picHeight/2){
+                    hit_print(picPass,picExtention,serie_info.color_name,picWidth/2+coridor,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                } else if (Number(hit.y)<-picHeight/2){
+                    hit_print(picPass,picExtention,serie_info.color_name,picWidth/2+coridor,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                } else {
+                    hit_print(picPass,picExtention,serie_info.color_name,picWidth/2+coridor,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                }
+            } else if (Number(hit.x)<-picWidth/2){
+                if (Number(hit.y)<-picHeight/2){
+                    hit_print(picPass,picExtention,serie_info.color_name,-picWidth/2-coridor,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                } else if (Number(hit.y)>picHeight/2){
+                    hit_print(picPass,picExtention,serie_info.color_name,-picWidth/2-coridor,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                } else {
+                    hit_print(picPass,picExtention,serie_info.color_name,-picWidth/2-coridor,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+                }
+            } else if (Number(hit.y)>picHeight/2){
+                hit_print(picPass,picExtention,serie_info.color_name,hit.x,picHeight/2+coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
+            } else if (Number(hit.y)<-picHeight/2){
+                hit_print(picPass,picExtention,serie_info.color_name,hit.x,-picHeight/2-coridor,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
             } else {
-                $("#dinamicPic").append(
-                    "<div class='hits'>" +
-                    "<img src='../helpers/img/mycabinet/Hits/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-15) +"px;top:"+ (Number(hit.y)-15) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='30px' height='30px'>" +
-                        //"<img src='../helpers/img/mycabinet/Pointers/" + serie_info.color_name +".png' style='position:absolute;left:"+ (Number(hit.x)+15-20) +"px;top:"+ (Number(hit.y)-50) +"px' title='x:&nbsp;"+ hit.x +", y:&nbsp;"+ hit.y +"' width='40px' height='50px'>" +
-                    "</div>"
-                )
+                hit_print(picPass,picExtention,serie_info.color_name,hit.x,hit.y,shotWidth,shotHeight,picWidth,picHeight,hit.x,hit.y)
             }
         });
     });
