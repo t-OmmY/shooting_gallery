@@ -39,7 +39,7 @@ $(document).ready(function(){
                         /* Отбираем по идентификатору блок со статьями и дозаполняем его новыми данными */
                         $("#articles").append("<div class='col-md-12 col-md-offset-0'>" +
                             "<blockquote>"+
-                            "<i style='font-size: 10px'>" + messages.date + "</i><br>" + messages.name + "<span style='font-size: 14px'>&nbsp;write:</span> <footer><br><i>" +
+                            "<i style='font-size: 10px'>" + messages.date + "</i><br>" + messages.name + "<span style='font-size: 14px'>&nbsp;write:</span> <footer><br><i  style='color: rgba(0, 64, 255, 0.84)'>" +
                             messages.message + "</i><br><span style='font-size: 10px'>" + messages.email + "</span></footer></blockquote></div>"
                         );
                     });
@@ -114,12 +114,12 @@ $(document).ready(function(){
                 });
             } else {
                 $("#dinamicInfo").append(
-                "<b>EMPTY SESSION, no series here...</b>"
+                "<b style='color: red'>EMPTY SESSION, no series here...</b>"
                 );
             }
             $("#dinamicPic").append(
                 "<div>" +
-                "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width=" + picWidth + " height=" + picHeight + " style='opacity:0.5'>" +
+                "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width=" + picWidth + " height=" + picHeight + " style='opacity:0.8'>" +
                 "</div>"
             );
             $.each(session_info.hits, function(index, hit){
