@@ -93,18 +93,30 @@ $(document).ready(function(){
                 "<br><i>name:&nbsp;</i>" + session_info.session_name +
                 "<br><i>target:&nbsp;</i>" + session_info.target_name +
                 "<br><i>caliber:&nbsp;</i>" + session_info.caliber_name + "&nbsp;diameter&nbsp;" + session_info.caliber_diameter +
-                "</div>" +
-                "<div id='serie'><br>Serie list:&nbsp;"+
+                "</div>");
+            if (session_info.serie_list !== 'empty'){
+                $("#dinamicInfo").append(
+                    "<div id='statistic'><h4>Statistic:</h4><b>The average distance from the center</b><table id='average_distance' border='1px'></table><br></div>" +
+                    "<div id='serie'><br>Serie list:&nbsp;"+
                     "<select name='serieSelect' id='dinamic_option'><option selected disabled>All series</option>" +
-              +
-                "</select>" +
-                "</div>"
-            );
-            $.each(session_info.serie_list, function(index, serie){
-                $("select#dinamic_option").append(
-                    "<option value='"+serie.serie_id+"'>"+ serie.number + "&nbsp;-&nbsp;" + serie.name + "</option>"
-                )
-            });
+                    +
+                        "</select>" +
+                    "</div>"
+                );
+                $.each(session_info.serie_list, function(index, serie){
+                    $("select#dinamic_option").append(
+                        "<option value='"+serie.serie_id+"' style='color: " + serie.color_name + "'>"+ serie.number + "&nbsp;-&nbsp;" + serie.name + "</option>"
+                    );
+                    $("table#average_distance").append(
+                        "<tr><td style='background: " + serie.color_name + "'>&nbsp&nbsp&nbspserie&nbsp&nbsp&nbsp" + serie.number + "&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp" + serie.average_distance + "&nbsp&nbsp&nbsp</td></tr>"
+                    );
+
+                });
+            } else {
+                $("#dinamicInfo").append(
+                "<b>EMPTY SESSION, no series here...</b>"
+                );
+            }
             $("#dinamicPic").append(
                 "<div>" +
                 "<img src=\"../helpers/img/mycabinet/Targets/" + session_info.target_name +".jpg\" width=" + picWidth + " height=" + picHeight + " style='opacity:0.5'>" +
@@ -155,7 +167,7 @@ $("body").on("change", "#dinamic_option", function () {
         $("div#serie").append(
             "<div id='serie_info'>"+
             "<br><i>number:&nbsp;</i>" + serie_info.number +
-            "<br><i>color:&nbsp;</i>" + serie_info.color_name +
+            "<br><span style='color: " + serie_info.color_name + "'><i>color:&nbsp;</i>" + serie_info.color_name + "</span>" +
             "<br><i>name:&nbsp;</i>" + serie_info.name +
             "<br><i>comment:&nbsp</i>;" + serie_info.comment +
             "<br><i>firestyle:&nbsp;</i>" + serie_info.firestyle_name +

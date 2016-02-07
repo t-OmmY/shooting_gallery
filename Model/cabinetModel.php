@@ -34,8 +34,11 @@ class cabinetModel
         $session_info['hits'] = self::select("SELECT h.x, h.y, c.color_name FROM hits h JOIN series s ON s.serie_id=h.serie_id JOIN colors c ON c.color_id=s.color_id WHERE session_id = {$session_id}");
         $session_info['hits'] = $session_info['hits']['result'];
         $session_info['target_name'] = str_replace(' #', '_', $session_info['target_name']);
-        $session_info['serie_list'] = self::select("SELECT serie_id, number, name FROM series WHERE session_id = {$session_id}");
+        $session_info['serie_list'] = self::select("SELECT s.serie_id, s.number, s.name, c.color_name, ROUND(AVG(SQRT(h.x*h.x+h.y*h.y)),2) as 'average_distance' FROM series s JOIN colors c ON c.color_id=s.color_id JOIN hits h ON s.serie_id=h.serie_id WHERE session_id = {$session_id} GROUP BY serie_id");
         $session_info['serie_list'] = $session_info['serie_list']['result'];
+        if ($session_info['serie_list'] == array()){
+            $session_info['serie_list'] = 'empty';
+        }
         if (!$session_info) {
             throw new Exception('session not found');
         }
@@ -49,7 +52,7 @@ class cabinetModel
         $serie_info['hits'] = self::select("SELECT x, y FROM hits WHERE serie_id = {$serie_id}");
         $serie_info['hits']= $serie_info['hits']['result'];
         if (!$serie_info) {
-            throw new Exception('session not found');
+            throw new Exception('serie not found');
         }
         return $serie_info;
     }
