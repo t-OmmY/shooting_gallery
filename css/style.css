@@ -1,0 +1,9 @@
+body{
+    background-attachment:scroll;
+    background-image: url("../helpers/img/background.png");
+}
+
+*{
+    font-family: "Book Antiqua";
+    font-size: 16px;
+}
