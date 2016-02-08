@@ -10,16 +10,7 @@ class IndexController extends Controller
      */
     public function indexAction(Request $request)
     {
-/*
-        $mainPage = 'it\'s Work!';
-
-        ob_start();
-        require $mainPage;
-
-        // очистка буфера и возврат строки с динамческим контентом
-        return ob_get_clean();
-*/
-        return "<iframe width=\"854\" height=\"480\" src=\"https://www.youtube.com/embed/U-x2jBbmSso\" frameborder=\"0\" allowfullscreen></iframe>";
+        return $this->render('index');
     }
 
 
