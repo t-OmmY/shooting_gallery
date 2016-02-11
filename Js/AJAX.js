@@ -39,8 +39,8 @@ $(document).ready(function(){
                         /* Отбираем по идентификатору блок со статьями и дозаполняем его новыми данными */
                         $("#articles").append("<div class='col-md-12 col-md-offset-0'>" +
                             "<blockquote>"+
-                            "<i style='font-size: 10px'>" + messages.date + "</i><br>" + messages.name + "<span style='font-size: 14px'>&nbsp;write:</span> <footer><br><i  style='color: rgba(0, 64, 255, 0.84)'>" +
-                            messages.message + "</i><br><span style='font-size: 10px'>" + messages.email + "</span></footer></blockquote></div>"
+                            "<i style='font-size: 14px'>" + messages.date + "</i><br><span style='font-size: 24px'>" + messages.name + "</span><span style='font-size: 20px'>&nbsp;write:</span> <footer><br><i style='font-size: 18px'>" +
+                            messages.message + "</i><br><span style='font-size: 14px'>" + messages.email + "</span></footer></blockquote></div>"
                         );
                     });
 
@@ -87,6 +87,7 @@ $(document).ready(function(){
 
         }).done(function(session_info){
             session_info = jQuery.parseJSON(session_info);
+
             $("#dinamicInfo").append(
                 "<h4>Session&nbsp;info</h4><div>" +
                 "<i>date:&nbsp;</i>" + session_info.date +
@@ -96,7 +97,7 @@ $(document).ready(function(){
                 "</div>");
             if (session_info.serie_list !== 'empty'){
                 $("#dinamicInfo").append(
-                    "<div id='statistic'><h4>Statistic:</h4><b>The average distance from the center</b><table id='average_distance' border='1px'></table><br></div>" +
+                    "<div id='statistic'><h4>Statistic:</h4><table id='statistic' border='1px' width='100%' style='text-align: center'><tr><td></td><td>ad</td><td>x0</td><td>y0</td><td>r100</td><td>r50</td><td>sd</td></tr></table><br></div>" +
                     "<div id='serie'><br>Serie list:&nbsp;"+
                     "<select name='serieSelect' id='dinamic_option'><option selected disabled>All series</option>" +
                     +
@@ -107,11 +108,15 @@ $(document).ready(function(){
                     $("select#dinamic_option").append(
                         "<option value='"+serie.serie_id+"' style='color: " + serie.color_name + "'>"+ serie.number + "&nbsp;-&nbsp;" + serie.name + "</option>"
                     );
-                    $("table#average_distance").append(
-                        "<tr><td style='background: " + serie.color_name + "'>&nbsp&nbsp&nbspserie&nbsp&nbsp&nbsp" + serie.number + "&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp" + serie.average_distance + "&nbsp&nbsp&nbsp</td></tr>"
+                    $("table#statistic").append(
+                        "<tr><td style='background: " + serie.color_name + "'>&nbsp serie &nbsp" + serie.number + "&nbsp</td><td>&nbsp" + serie.ad + "&nbsp</td><td>&nbsp" + serie.x0 + "&nbsp</td><td>&nbsp" + serie.y0 + "&nbsp</td><td>&nbsp" + serie.r100 + "&nbsp</td><td>&nbsp" + serie.r50 + "&nbsp</td><td>&nbsp" + serie.sd + "&nbsp</td></tr>"
                     );
 
                 });
+                $("table#statistic").append(
+                    "<tr style='color: #ff002b'><td>FULL SESSION</td><td>&nbsp" + session_info.ses_stat.ad + "&nbsp</td><td>&nbsp" + session_info.ses_stat.x0 + "&nbsp</td><td>&nbsp" + session_info.ses_stat.y0 + "&nbsp</td><td>&nbsp" + session_info.ses_stat.r100 + "&nbsp</td><td>&nbsp" + session_info.ses_stat.r50 + "&nbsp</td><td>&nbsp" + session_info.ses_stat.sd + "&nbsp</td></tr>"
+                );
+
             } else {
                 $("#dinamicInfo").append(
                 "<b style='color: red'>EMPTY SESSION, no series here...</b>"
