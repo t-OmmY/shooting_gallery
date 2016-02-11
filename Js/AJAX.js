@@ -96,8 +96,14 @@ $(document).ready(function(){
                 "<br><i>caliber:&nbsp;</i>" + session_info.caliber_name + "&nbsp;diameter&nbsp;" + session_info.caliber_diameter +
                 "</div>");
             if (session_info.serie_list !== 'empty'){
+                ad = 'advanture_distance_from_the_centre';
+                var x0 = 'group_center_X';
+                var y0 = 'group_center_Y';
+                var r100 = 'circle_radius,_which_gets_100%_of_the_shots';
+                var r50 = 'circle_radius,_which_gets_50%_of_the_shots';
+                var sd = 'standard_deviation_of_the_distance_from_the_center';
                 $("#dinamicInfo").append(
-                    "<div id='statistic'><h4>Statistic:</h4><table id='statistic' border='1px' width='100%' style='text-align: center'><tr><td></td><td>ad</td><td>x0</td><td>y0</td><td>r100</td><td>r50</td><td>sd</td></tr></table><br></div>" +
+                    "<div id='statistic'><h4>Statistic:</h4><table id='statistic' border='1px' width='100%' style='text-align: center'><tr><td></td><td class='stat' data-title=" + ad + ">ad</td><td class='stat' data-title=" + x0 + ">x0</td><td class='stat' data-title=" + y0 + ">y0</td><td class='stat' data-title=" + r100 + ">r100</td><td class='stat' data-title=" + r50 + ">r50</td><td class='stat' data-title=" + sd + ">sd</td></tr></table><br></div>" +
                     "<div id='serie'><br>Serie list:&nbsp;"+
                     "<select name='serieSelect' id='dinamic_option'><option selected disabled>All series</option>" +
                     +
